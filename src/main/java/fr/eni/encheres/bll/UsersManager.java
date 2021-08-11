@@ -1,8 +1,8 @@
-package bll;
+package fr.eni.encheres.bll;
 
-import bo.User;
-import dal.DALException;
-import dal.UserDaoImpl;
+import fr.eni.encheres.bo.User;
+import fr.eni.encheres.dal.DALException;
+import fr.eni.encheres.dal.UserDaoImpl;
 
 public class UsersManager {
 

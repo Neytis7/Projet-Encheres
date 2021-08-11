@@ -1,4 +1,4 @@
-package servlets;
+package fr.eni.encheres.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bll.BLLException;
-import bll.UsersManager;
-import bo.User;
+import fr.eni.encheres.bll.BLLException;
+import fr.eni.encheres.bll.UsersManager;
+import fr.eni.encheres.bo.User;
 
 /**
  * Servlet implementation class Inscription

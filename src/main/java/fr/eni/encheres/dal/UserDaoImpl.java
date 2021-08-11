@@ -1,4 +1,4 @@
-package dal;
+package fr.eni.encheres.dal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import bo.User;
-import dal.jdbc.ConnexionProvider;
+import fr.eni.encheres.bo.User;
+import fr.eni.encheres.dal.jdbc.ConnexionProvider;
 
 public class UserDaoImpl {
 
