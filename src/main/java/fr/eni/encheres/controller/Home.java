@@ -31,7 +31,9 @@ public class Home extends HttpServlet {
       throws ServletException, IOException {
 
     RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
-    rd.forward(request, response);
+    if (rd != null) {
+      rd.forward(request, response);
+    }
   }
 
   /**
