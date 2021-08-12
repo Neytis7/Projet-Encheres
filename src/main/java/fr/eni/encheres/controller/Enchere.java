@@ -1,4 +1,4 @@
-package servlets;
+package fr.eni.encheres.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

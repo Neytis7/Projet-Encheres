@@ -1,8 +1,8 @@
-package bll;
+package fr.eni.encheres.bll;
 
-import bo.User;
-import dal.UserDaoImpl;
-import dal.DALException;
+import fr.eni.encheres.bo.User;
+import fr.eni.encheres.dal.DALException;
+import fr.eni.encheres.dal.UserDaoImpl;
 
 public class UsersManager {
 private UserDaoImpl userDAO = new UserDaoImpl();
@@ -25,7 +25,7 @@ private UserDaoImpl userDAO = new UserDaoImpl();
 	}
 	
 	
-	private void isNotNull(int idUser) throws bll.BLLException {
+	private void isNotNull(int idUser) throws fr.eni.encheres.bll.BLLException {
 		if(idUser == 0) {
 			throw new BLLException(new Exception("L'id user passé en paramètre est égal à 0."));
 		}
