@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dal.jdbc.ConnexionProvider;
@@ -16,6 +17,8 @@ public class UserDaoImpl {
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 	
 	private static final String SELECT_USER_BY_LOGIN = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE pseudo = (?) or email = (?)";
+	
+	private static final String SELECT_ALL_USERS = "USE DB_ENCHERES SELECT pseudo, email FROM UTILISATEURS";
 	
 	public boolean insert(User user) throws DALException {
 		
@@ -89,5 +92,28 @@ public class UserDaoImpl {
 			throw new DALException(new Exception("[Erreur] impossible de récuperer l'utilisateur avec le login :" + loginUser));
 		}
 		return user;	
+	}
+
+	public ArrayList<User> selectAllUsersPseudoAndMail() throws DALException {
+
+		ResultSet result;
+		ArrayList<User> allUsers = new ArrayList<>();
+		
+		try {
+			
+			Connection connection = ConnexionProvider.getConnection();
+			PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS);	
+			result = ps.executeQuery();
+			
+			while(result.next()) {
+				
+				allUsers.add(new User(result.getString("pseudo"),result.getString("email")));
+			}
+		}catch(SQLException exception) {
+			
+			throw new DALException(new Exception("[erreur] Récupération impossible de la liste des utilisateurs"));
+		}
+		
+		return allUsers;
 	}
 }

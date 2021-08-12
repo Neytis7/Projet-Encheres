@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UsersManager;
+import fr.eni.encheres.bo.User;
 
 /**
  * Servlet implementation class signIn
@@ -50,6 +52,9 @@ public class signIn extends HttpServlet {
 		List<String> errors = new ArrayList<>();
 		UsersManager usersManager = new UsersManager();
 		String redirectServlet = "WEB-INF/sign-in.jsp";
+		ArrayList<Object> array = new ArrayList<>();
+		User userConnected = null;
+		HttpSession session = request.getSession();		
 		
 		if(btnSignIn != null) {
 			
@@ -59,14 +64,34 @@ public class signIn extends HttpServlet {
 			if(!loginUser.isEmpty() || !passwordUser.isEmpty()) {
 				
 				try {
-					usersManager.signInUser(loginUser, passwordUser);
-					redirectServlet = "WEB-INF/Home.jsp";
+					array = usersManager.signInUser(loginUser, passwordUser);
+					
+					if(!array.isEmpty()) {
+						
+						userConnected = (User) array.get(0);
+						boolean access = (boolean) array.get(1);
+						
+						if(access) {
+							
+							session.setAttribute("idUserConnected", userConnected.getNo_user());
+							session.setAttribute("nameUserConnected", userConnected.getName());
+							session.setAttribute("firstNameUserConnected", userConnected.getFirst_name());
+							redirectServlet = "WEB-INF/Home.jsp";
+						}
+					}else {
+						errors.add("Le login ou le mot de passe est incorrecte !");
+					}
+					
 				}catch(BLLException exception) {
-					errors.add("Le login ou le mot de passe est incorrecte, veuillez réessayer !");
+					errors.add("Une erreur s'est produite, veuillez réessayer !");
 				}
 			}else {
 				errors.add("Les champs pseudo/email et mot de passe doivent être renseignés.");
 			}
+		}
+		
+		if(errors.size() > 0) {
+			request.setAttribute("errors", errors);
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);
@@ -75,5 +100,4 @@ public class signIn extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
-
 }

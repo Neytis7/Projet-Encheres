@@ -50,6 +50,12 @@ public class User {
 			this.phone_number = phone_number;
 		}
 	}
+	
+	public User(String pseudo, String mail) {
+		super();
+		this.pseudo = pseudo;
+		this.mail = mail;
+	}
 
 	public int getNo_user() {
 		return no_user;

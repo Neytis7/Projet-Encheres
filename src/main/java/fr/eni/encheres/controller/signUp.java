@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UsersManager;
@@ -51,6 +52,7 @@ public class signUp extends HttpServlet {
 		List<String> errors = new ArrayList<>();
 		UsersManager usersManager = new UsersManager();
 		String redirectServlet = "WEB-INF/sign-up.jsp";
+		HttpSession session = request.getSession();	
 		
 		if(btnSignUp != null) {
 	
@@ -68,7 +70,10 @@ public class signUp extends HttpServlet {
 			
 			if(pseudoUser.isEmpty()) {
 				errors.add("Le pseudo est manquant");		
+			}else if(!pseudoUser.matches("^[a-zA-Z0-9]*$")) {
+				errors.add("Le pseudo doit être composé uniquement de caractère alphanumérique !");	
 			}
+			
 			if(nameUser.isEmpty()) {
 				errors.add("Le nom est manquant");		
 			}
@@ -95,11 +100,20 @@ public class signUp extends HttpServlet {
 			
 				try {
 					User user = new User(pseudoUser, nameUser, firstNameUser, mailUser, phoneNumberUser, 
-							addressUser, cityUser, zipCodeUser, passwordUser, creditUser, isAdministrator);
+							addressUser, zipCodeUser, cityUser, passwordUser, creditUser, isAdministrator);
 					
-					usersManager.signUpUser(user);
-					request.setAttribute("success", "Votre compte a été crée avec succès !");
-					redirectServlet = "WEB-INF/Home.jsp";
+					errors = new ArrayList<>();
+					errors = usersManager.signUpUser(user);
+					
+					if(errors.size() != 0) {
+						request.setAttribute("errors", errors);
+					}else {
+						session.setAttribute("idUserConnected", user.getNo_user());
+						session.setAttribute("nameUserConnected", user.getName());
+						session.setAttribute("firstNameUserConnected", user.getFirst_name());
+						redirectServlet = "WEB-INF/Home.jsp";
+					}					
+					
 				} catch (BLLException e) {
 					errors.add("[erreur] L'inscripton de l'utilisateur à échoué");
 				}
