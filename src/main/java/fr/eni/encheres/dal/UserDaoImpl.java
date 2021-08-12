@@ -38,7 +38,6 @@ public class UserDaoImpl {
 			System.out.println(user.toString());
 			return user;
 		}catch(SQLException exception) {
-			exception.printStackTrace();
 			throw new DALException(new Exception("Erreur lors de récupération de l'utilisateur " + idUser));
 		}
 		

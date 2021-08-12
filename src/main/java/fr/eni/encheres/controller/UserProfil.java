@@ -38,7 +38,6 @@ public class UserProfil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Get user and display userProfile page");
 		UsersManager usersManager = new UsersManager();
 		User userToDisplay = null;
 		String errorMessage = "";
