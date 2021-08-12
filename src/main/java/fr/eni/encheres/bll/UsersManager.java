@@ -7,7 +7,24 @@ import fr.eni.encheres.dal.UserDaoImpl;
 public class UsersManager {
 
 	private UserDaoImpl usersDAO = new UserDaoImpl();
+    
+    public UserDaoImpl getUserDAO() {
+		return userDAO;
+	}
 
+	public void setUserDAO(UserDaoImpl userDAO) {
+		this.userDAO = userDAO;
+	}
+	
+	public User getUserById(int idUser) throws BLLException {
+		isNotNull(idUser);
+		try {
+			return userDAO.selectUserById(idUser);
+		} catch (DALException dalException) {
+			throw new BLLException(new Exception("La r�cup�ration de l'utilisateur � �chou�e."));
+		}
+	}
+    
 	public void signUpUser(User user) throws BLLException {
 
 		isNotNull(user);
@@ -23,6 +40,12 @@ public class UsersManager {
 		
 		if(user == null) {
 			throw new BLLException(new Exception("L'utilisateur est vide."));
+		}
+	}
+    
+    private void isNotNull(int idUser) throws fr.eni.encheres.bll.BLLException {
+		if(idUser == 0) {
+			throw new BLLException(new Exception("L'id user pass� en param�tre est �gal � 0."));
 		}
 	}
 }

@@ -14,7 +14,8 @@ public class UserDaoImpl {
 	private static final String INSERT_USER = "USE DB_ENCHERES INSERT INTO UTILISATEURS "
 			+ "(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-	
+	private static final String SELECT_USER_ID = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE no_utilisateur = (?) ";
+    
 	public boolean insert(User user) throws DALException {
 		
 		int result = 0;
@@ -53,5 +54,34 @@ public class UserDaoImpl {
 		}
 		
 		return success;	
+	}
+    
+    public User selectUserById(int idUser) throws DALException {
+		User user= null;
+		try {
+			Connection connexion = ConnexionProvider.getConnection();
+			PreparedStatement preparedStatement = connexion.prepareStatement(SELECT_USER_ID);	
+			preparedStatement.setInt(1,idUser);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				user = new User(resultSet.getInt("no_utilisateur"),
+								resultSet.getString("pseudo"),	
+								resultSet.getString("nom"),	
+								resultSet.getString("prenom"),	
+								resultSet.getString("email"),	
+								resultSet.getString("telephone"),	
+								resultSet.getString("rue"),	
+								resultSet.getString("code_postal"),	
+								resultSet.getString("ville"),	
+								resultSet.getString("mot_de_passe"),	
+								resultSet.getInt("credit"),	
+								resultSet.getByte("administrateur") != 0);
+			}
+			System.out.println(user.toString());
+			return user;
+		}catch(SQLException exception) {
+			throw new DALException(new Exception("Erreur lors de r�cup�ration de l'utilisateur " + idUser));
+		}
 	}
 }
