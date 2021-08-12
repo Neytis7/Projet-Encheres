@@ -1,0 +1,12 @@
+
+.classpath
+
+build/classes/bll/BLLException.class
+
+build/classes/bll/UsersManager.class
+
+build/classes/dal/jdbc/ConnexionProvider.class
+
+build/classes/dal/UserDaoImpl.class
+
+build/classes/servlets/UserProfil.class
