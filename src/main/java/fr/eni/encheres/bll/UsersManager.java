@@ -9,17 +9,17 @@ public class UsersManager {
 	private UserDaoImpl usersDAO = new UserDaoImpl();
     
     public UserDaoImpl getUserDAO() {
-		return userDAO;
+		return usersDAO;
 	}
 
 	public void setUserDAO(UserDaoImpl userDAO) {
-		this.userDAO = userDAO;
+		this.usersDAO = userDAO;
 	}
 	
 	public User getUserById(int idUser) throws BLLException {
 		isNotNull(idUser);
 		try {
-			return userDAO.selectUserById(idUser);
+			return usersDAO.selectUserById(idUser);
 		} catch (DALException dalException) {
 			throw new BLLException(new Exception("La r�cup�ration de l'utilisateur � �chou�e."));
 		}
