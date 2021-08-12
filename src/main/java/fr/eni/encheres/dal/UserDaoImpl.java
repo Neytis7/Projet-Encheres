@@ -15,6 +15,8 @@ public class UserDaoImpl {
 			+ "(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 	
+	private static final String SELECT_USER_BY_LOGIN = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE pseudo = (?) or email = (?)";
+	
 	public boolean insert(User user) throws DALException {
 		
 		int result = 0;
@@ -48,10 +50,44 @@ public class UserDaoImpl {
 		        }
 			}
 				
-		}catch(Exception exception) {
+		}catch(SQLException exception) {
 			throw new DALException(new Exception("[Erreur] impossible de créer l'utilisateur."));
 		}
 		
 		return success;	
+	}
+
+	public User getUserByLogin(String loginUser) throws DALException {
+
+		ResultSet result;
+		User user = null;
+		try {
+			
+			Connection connection = ConnexionProvider.getConnection();
+			PreparedStatement ps = connection.prepareStatement(SELECT_USER_BY_LOGIN);	
+			ps.setString(1, loginUser);
+			ps.setString(2, loginUser);
+			result = ps.executeQuery();
+			
+			if(result.next()) {
+				user = new User(
+						result.getInt("no_utilisateur"),
+						result.getString("pseudo"),
+						result.getString("nom"),
+						result.getString("prenom"),
+						result.getString("email"),
+						result.getString("telephone"),
+						result.getString("rue"),
+						result.getString("code_postal"),
+						result.getString("ville"),
+						result.getString("mot_de_passe"),
+						result.getInt("credit"),
+						result.getByte("administrateur") != 0
+				);
+			}
+		}catch(SQLException exception) {
+			throw new DALException(new Exception("[Erreur] impossible de récuperer l'utilisateur avec le login :" + loginUser));
+		}
+		return user;	
 	}
 }

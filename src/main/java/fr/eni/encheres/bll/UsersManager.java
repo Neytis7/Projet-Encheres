@@ -18,6 +18,25 @@ public class UsersManager {
 			throw new BLLException(new Exception("L'inscription a échoué"));
 		}		
 	}
+	
+	public void signInUser(String loginUser, String password ) throws BLLException {
+
+		isNotNull(loginUser);
+		isNotNull(password);
+
+		try {
+			usersDAO.getUserByLogin(loginUser);
+		} catch (DALException e) {
+			throw new BLLException(new Exception("L'inscription a échoué"));
+		}		
+	}
+
+	private void isNotNull(String param) throws BLLException {
+		if(param == null) {
+			throw new BLLException(new Exception("Ce champ est vide."));
+		}
+		
+	}
 
 	private void isNotNull(User user) throws BLLException {
 		

@@ -7,6 +7,8 @@
 		<%@ include file="includeCDN.jsp" %>
 	</head>
 	<body>
+		<%@ include file="/WEB-INF/FragHeading.jspf" %>
+		
 		<div class="container">
 			<p class="display-3">Création de votre compte ! </p>
 			
@@ -63,7 +65,7 @@
 				
 				<div class="form-group">
 					<label for="passwordUser">votre mot de passe :</label>
-					<input type="text" class="form-control" id="passwordUser" name="passwordUser" required>
+					<input type="password" class="form-control" id="passwordUser" name="passwordUser" required>
 				</div>
 				
 				<div class="form-group">
@@ -71,6 +73,9 @@
 				</div>
 			
 			</form>
+			
+			<p class="lead">Vous avez déjà un compte ?</p>
+			<a href="./sign-in" class="btn btn-info bt-large">Connexion</a>
 		
 		</div>
 		

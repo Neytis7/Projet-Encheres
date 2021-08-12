@@ -50,7 +50,7 @@ public class signUp extends HttpServlet {
 		String btnSignUp = (String) request.getParameter("btnSignUp");
 		List<String> errors = new ArrayList<>();
 		UsersManager usersManager = new UsersManager();
-		String redirectServlet = "WEB-INF/Home.jsp";
+		String redirectServlet = "WEB-INF/sign-up.jsp";
 		
 		if(btnSignUp != null) {
 	
@@ -99,12 +99,12 @@ public class signUp extends HttpServlet {
 					
 					usersManager.signUpUser(user);
 					request.setAttribute("success", "Votre compte a été crée avec succès !");
+					redirectServlet = "WEB-INF/Home.jsp";
 				} catch (BLLException e) {
 					errors.add("[erreur] L'inscripton de l'utilisateur à échoué");
 				}
 			}else {
 				request.setAttribute("errors", errors);
-				redirectServlet = "WEB-INF/sign-up.jsp";
 			}	
 		}
 			
