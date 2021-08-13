@@ -17,18 +17,57 @@
 		<div class="container">
   			<h2>Auction list</h2>  
   			Filter :
-			<form class="form-inline mr-auto">
-  				<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-  				<select class="browser-default custom-select">
+			<form action="${pageContext.request.contextPath }/Filter" method="post" class="form-inline mr-auto">
+  				<input class="form-control mr-sm-2" name ="search" type="text" placeholder="Search" aria-label="Search">
+  				<select name="category" class="browser-default custom-select">
   					<option selected>Toutes</option>
-  					<option value="1">Informatique</option>
-  					<option value="2">Ameublement</option>
-  					<option value="3">Vêtement</option>
-  					<option value="3">Sport et Loisir</option>
+  					<option value="Informatique">Informatique</option>
+  					<option value="Ameublement">Ameublement</option>
+  					<option value="Vetement">Vêtement</option>
+  					<option value="Sport et Loisir">Sport et Loisir</option>
 				</select>
   				<button type="submit" class="btn btn-dark">Search</button>
 			</form>
   			<br>
+  			<c:choose>
+    			<c:when test="${not empty filterList }">
+        			  <c:forEach var="enchere" items="${filterList}">
+  						<div class="row">
+  							<div class="col-sm-6">
+    							<div class="card">
+      								<div class="card-body">
+        							<a href="#" class="btn btn-dark">${enchere.nameArticle }</a>
+        							<p class="card-text">Price : ${enchere.price }</p>
+        							<p class="card-text">End Auction : ${enchere.endDate }</p>
+       						    	<p class="card-text">Seller : ${enchere.pseudo }</p>
+      								</div>
+   								</div>
+  							</div>
+  						</div>
+  					</c:forEach> 
+    			</c:when>    
+    		<c:otherwise>
+        		<c:if test="${not empty listEncheres }">
+  					<c:forEach var="enchere" items="${listEncheres}">
+  						<div class="row">
+  							<div class="col-sm-6">
+    							<div class="card">
+      								<div class="card-body">
+        							<a href="#" class="btn btn-dark">${enchere.nameArticle }</a>
+        							<p class="card-text">Price : ${enchere.price }</p>
+        							<p class="card-text">End Auction : ${enchere.endDate }</p>
+       						    	<p class="card-text">Seller : ${enchere.pseudo }</p>
+      								</div>
+   								</div>
+  							</div>
+  						</div>
+  					</c:forEach>
+  				</c:if>
+  				<c:if test="${empty listEncheres }">
+				<p style="text-align:center">No auctions for the moment...</p>
+			</c:if>
+   			</c:otherwise>
+			</c:choose>		
 		</div>
 	</main>
 </body>
