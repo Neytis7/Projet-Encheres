@@ -6,8 +6,20 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sign-up">Sign up</a>
-      <a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sign-in">Sign in</a>
+    	
+		<c:choose>
+	         <c:when test ="${empty idUserConnected}">
+	            <a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sign-up">Sign up</a>
+	      		<a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sign-in">Sign in</a>
+	         </c:when>
+	         
+	         
+	         <c:otherwise>
+           		<a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sign-out">Sign out</a>
+           		<span style="position:relative;left:100%;" class="navbar-text text-primary">${firstNameUserConnected} ${nameUserConnected}</span>
+         	</c:otherwise>
+         </c:choose>
+	      
     </div>
   </div>
 </nav>
