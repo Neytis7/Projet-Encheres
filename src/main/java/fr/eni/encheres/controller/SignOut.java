@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class SignOut
  */
-@WebServlet(description = "Permet à l'utilisateur de se connecter", urlPatterns = { "/sign-out" })
+@WebServlet(description = "Permet à l'utilisateur de se deconnecter", urlPatterns = { "/sign-out" })
 public class SignOut extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

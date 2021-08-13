@@ -1,8 +1,6 @@
 package fr.eni.encheres.bll;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.UserDaoImpl;
@@ -11,11 +9,11 @@ public class UsersManager {
 
 	private UserDaoImpl usersDAO = new UserDaoImpl();
 
-	public List<String> signUpUser(User user) throws BLLException {
+	public ArrayList<String> signUpUser(User user) throws BLLException {
 
 		isNotNull(user);
 		ArrayList<User> allUsers = new ArrayList<>();
-		List<String> errors = new ArrayList<>();
+		ArrayList<String> errors = new ArrayList<>();
 
 		try {
 			allUsers = usersDAO.selectAllUsersPseudoAndMail();
