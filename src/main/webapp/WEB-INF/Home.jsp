@@ -31,15 +31,22 @@
   			<br>
   			<c:choose>
     			<c:when test="${not empty filterList }">
-        			  <c:forEach var="enchere" items="${filterList}">
+        			  <c:forEach var="article" items="${filterList}">
   						<div class="row">
   							<div class="col-sm-6">
     							<div class="card">
       								<div class="card-body">
-        							<a href="#" class="btn btn-dark">${enchere.nameArticle }</a>
-        							<p class="card-text">Price : ${enchere.price }</p>
-        							<p class="card-text">End Auction : ${enchere.endDate }</p>
-       						    	<p class="card-text">Seller : ${enchere.pseudo }</p>
+        							<a href="#" class="btn btn-dark">${article.name_article }</a>
+        							<c:choose>
+    									<c:when test="${article.price_auction > 0 }">
+    									<p class="card-text">Price : ${article.price_auction }</p>
+    									</c:when>
+    									<c:otherwise>
+    									<p class="card-text">Price : ${article.initial_price }</p>
+    									</c:otherwise>
+    								</c:choose>
+        							<p class="card-text">End Auction : ${article.end_date }</p>
+       						    	<p class="card-text">Seller : ${article.user.pseudo }</p>
       								</div>
    								</div>
   							</div>
@@ -47,24 +54,31 @@
   					</c:forEach> 
     			</c:when>    
     		<c:otherwise>
-        		<c:if test="${not empty listEncheres }">
-  					<c:forEach var="enchere" items="${listEncheres}">
+        		<c:if test="${not empty listArticles }">
+  					<c:forEach var="article" items="${listArticles}">
   						<div class="row">
   							<div class="col-sm-6">
     							<div class="card">
       								<div class="card-body">
-        							<a href="#" class="btn btn-dark">${enchere.nameArticle }</a>
-        							<p class="card-text">Price : ${enchere.price }</p>
-        							<p class="card-text">End Auction : ${enchere.endDate }</p>
-       						    	<p class="card-text">Seller : ${enchere.pseudo }</p>
+        							<a href="#" class="btn btn-dark">${article.name_article }</a>
+        							<c:choose>
+    									<c:when test="${article.price_auction > 0 }">
+    									<p class="card-text">Price : ${article.price_auction }</p>
+    									</c:when>
+    									<c:otherwise>
+    									<p class="card-text">Price : ${article.initial_price }</p>
+    									</c:otherwise>
+    								</c:choose>
+        							<p class="card-text">End Auction : ${article.end_date }</p>
+       						    	<p class="card-text">Seller : ${article.user.pseudo }</p>
       								</div>
    								</div>
   							</div>
   						</div>
   					</c:forEach>
   				</c:if>
-  				<c:if test="${empty listEncheres }">
-				<p style="text-align:center">No auctions for the moment...</p>
+  				<c:if test="${empty listArticles }">
+				<p style="text-align:center">No articles for the moment...</p>
 			</c:if>
    			</c:otherwise>
 			</c:choose>		

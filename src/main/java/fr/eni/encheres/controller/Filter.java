@@ -8,8 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import fr.eni.encheres.bll.EncheresManager;
-import fr.eni.encheres.bo.Encheres;
+import fr.eni.encheres.bll.ArticleManager;
+import fr.eni.encheres.bo.Article;
 
 /**
  * Servlet implementation class Filter
@@ -17,14 +17,14 @@ import fr.eni.encheres.bo.Encheres;
 @WebServlet("/Filter")
 public class Filter extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  private EncheresManager encheresManager;
+  private ArticleManager articleManager;
 
   /**
    * @see HttpServlet#HttpServlet()
    */
   public Filter() {
     super();
-    encheresManager = EncheresManager.getInstance();
+    articleManager = ArticleManager.getInstance();
   }
 
   /**
@@ -33,7 +33,7 @@ public class Filter extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    RequestDispatcher rd = request.getRequestDispatcher("./Home");
+    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
     if (rd != null) {
       rd.forward(request, response);
     }
@@ -50,7 +50,7 @@ public class Filter extends HttpServlet {
 
     String category = "";
 
-    List<Encheres> filterList = null;
+    List<Article> filterList = null;
 
     if (request.getParameter("search") != null) {
       search = String.valueOf(request.getParameter("search"));
@@ -63,7 +63,8 @@ public class Filter extends HttpServlet {
           /* Case 1 : Search + All */
           if (category.equals("Toutes")) {
             try {
-              filterList = encheresManager.visualiserEncheresNameAll(search);
+              filterList = articleManager.FilterNameAll(search);
+              filterList = articleManager.getPrice(filterList);
             } catch (NumberFormatException e) {
               e.printStackTrace();
             } catch (Exception e) {
@@ -75,7 +76,8 @@ public class Filter extends HttpServlet {
             /* Case 2 : Search + Category */
           } else {
             try {
-              filterList = encheresManager.visualiserEncheresNameCategorie(search, category);
+              filterList = articleManager.FilterNameCategory(search, category);
+              filterList = articleManager.getPrice(filterList);
             } catch (NumberFormatException e) {
               e.printStackTrace();
             } catch (Exception e) {
@@ -91,12 +93,15 @@ public class Filter extends HttpServlet {
         if (request.getParameter("category") != null) {
           category = String.valueOf(request.getParameter("category"));
           if (category.equals("Toutes")) {
-            doGet(request, response);
-
+            RequestDispatcher rd = request.getRequestDispatcher("./Home");
+            if (rd != null) {
+              rd.forward(request, response);
+            }
             /* Case 4 : Just Category */
           } else {
             try {
-              filterList = encheresManager.visualiserEncheresCategorie(category);
+              filterList = articleManager.FilterCategory(category);
+              filterList = articleManager.getPrice(filterList);
             } catch (NumberFormatException e) {
               e.printStackTrace();
             } catch (Exception e) {

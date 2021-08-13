@@ -8,8 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import fr.eni.encheres.bll.EncheresManager;
-import fr.eni.encheres.bo.Encheres;
+import fr.eni.encheres.bll.ArticleManager;
+import fr.eni.encheres.bo.Article;
 
 /**
  * Servlet implementation class VisualiserListesEncheres
@@ -17,14 +17,14 @@ import fr.eni.encheres.bo.Encheres;
 @WebServlet("/Home")
 public class Home extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  private EncheresManager encheresManager;
+  private ArticleManager articleManager;
 
   /**
    * @see HttpServlet#HttpServlet()
    */
   public Home() {
     super();
-    encheresManager = EncheresManager.getInstance();
+    articleManager = ArticleManager.getInstance();
   }
 
   /**
@@ -33,17 +33,18 @@ public class Home extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    List<Encheres> listEncheres = null;
+    List<Article> listArticles = null;
 
     try {
-      listEncheres = encheresManager.visualiserEncheres();
+      listArticles = articleManager.getArticlesInProgress();
+      listArticles = articleManager.getPrice(listArticles);
     } catch (NumberFormatException e) {
       e.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-    request.setAttribute("listEncheres", listEncheres);
+    request.setAttribute("listArticles", listArticles);
 
     RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
     if (rd != null) {
