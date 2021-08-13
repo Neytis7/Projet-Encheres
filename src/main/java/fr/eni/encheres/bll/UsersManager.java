@@ -35,6 +35,17 @@ public class UsersManager {
 			throw new BLLException(new Exception("L'inscription a Ã©chouÃ©"));
 		}		
 	}
+	
+	public boolean updateUser(User user) throws BLLException {
+		boolean success = false;
+		isNotNull(user);
+		try {
+			success = usersDAO.updateUserByID(user);
+		} catch (DALException e) {
+			throw new BLLException(new Exception("La mise à jour des données de l'utilsateur a échoué"));
+		}
+		return success;
+	}
 
 	private void isNotNull(User user) throws BLLException {
 		

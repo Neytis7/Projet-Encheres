@@ -15,6 +15,18 @@ public class UserDaoImpl {
 			+ "(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 	private static final String SELECT_USER_ID = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE no_utilisateur = (?) ";
+	
+	private static final String UPDATE_USER_BY_ID = "USE DB_ENCHERES UPDATE UTILISATEURS "
+													+ " SET pseudo = (?),"
+													+ " nom = (?),"
+													+ " prenom = (?),"
+													+ " email = (?),"
+													+ " telephone = (?),"
+													+ " rue = (?),"
+													+ " code_postal = (?),"
+													+ " ville = (?),"
+													+ " mot_de_passe = (?)"
+													+ " WHERE no_utilisateur = (?)";
     
 	public boolean insert(User user) throws DALException {
 		
@@ -83,4 +95,36 @@ public class UserDaoImpl {
 			throw new DALException(new Exception("An error occured while get user with id " + idUser));
 		}
 	}
+    
+    public boolean updateUserByID(User userToUpdate) throws DALException {
+    	boolean success = false;
+    	try {
+			Connection connexion = ConnexionProvider.getConnection();
+			PreparedStatement preparedStatement = connexion.prepareStatement(UPDATE_USER_BY_ID);
+			preparedStatement.setString(1, userToUpdate.getPseudo());
+			preparedStatement.setString(2, userToUpdate.getName());
+			preparedStatement.setString(3, userToUpdate.getFirst_name());
+			preparedStatement.setString(4, userToUpdate.getMail());
+			preparedStatement.setString(5, userToUpdate.getPhone_number());
+			preparedStatement.setString(6, userToUpdate.getAddress());
+			preparedStatement.setString(7, userToUpdate.getZip_code());
+			preparedStatement.setString(8, userToUpdate.getCity());
+			preparedStatement.setString(9, userToUpdate.getPassword());
+			preparedStatement.setInt(10, userToUpdate.getNo_user());
+			int result = preparedStatement.executeUpdate();
+			
+			if (result > 0) {
+				success = false;
+			} else {
+				throw new DALException(new Exception("An error occured while update user with id " + userToUpdate.getNo_user()));
+			}
+			
+    	}catch(SQLException exception) {
+    		exception.printStackTrace();
+			throw new DALException(new Exception("An error occured while update user with id " + userToUpdate.getNo_user()));
+		}
+    	return success;
+    }
+    
+    
 }

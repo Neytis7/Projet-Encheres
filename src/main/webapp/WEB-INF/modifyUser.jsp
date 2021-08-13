@@ -7,6 +7,7 @@
 		<%@ include file="includeCDN.jsp" %>
 	</head>
 	<body>
+		<%@ include file="/WEB-INF/FragHeading.jspf"%>
 		<div class="container">
 			<p class="display-3">Modification de vos informations</p>
 			
@@ -19,7 +20,7 @@
 				</div>
 			</c:forEach>
 			
-			<form method="POST" action="./user-profile" class="col-6">
+			<form method="POST" action="./modify-user" class="col-6">
 			
 				<div class="form-group">
 					<label for="pseudoUser">votre pseudo :</label>
@@ -72,7 +73,12 @@
 				</div>
 				
 				<div class="form-group">
-					<button type="submit" class="btn btn-success btn-lg" id="btnValidate" name="btnValidate">Valider</button>
+					<label for="credit">credit : ${user.credit}</label>
+					<input type="hidden" name="credit" id="credit" value = "${user.credit}">
+				</div>
+				
+				<div class="form-group">
+					<button type="submit" class="btn btn-success btn-lg" id="btnValidateModification" name="btnValidateModification">Valider</button>
 				</div>
 			
 			</form>

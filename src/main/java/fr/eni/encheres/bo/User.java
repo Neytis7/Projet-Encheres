@@ -1,5 +1,8 @@
 package fr.eni.encheres.bo;
 
+import java.util.ArrayList;
+
+
 public class User {
 	private int no_user;
 	private String pseudo;
@@ -30,6 +33,8 @@ public class User {
 		this.isAdministrator = isAdministrator;
 		if (phone_number != null) {
 			this.phone_number = phone_number;
+		} else {
+			this.phone_number = "" ;
 		}
 	}
 	
@@ -48,6 +53,8 @@ public class User {
 		this.isAdministrator = isAdministrator;
 		if (phone_number != null) {
 			this.phone_number = phone_number;
+		} else {
+			this.phone_number = "" ;
 		}
 	}
 
@@ -147,6 +154,50 @@ public class User {
 		this.isAdministrator = isAdministrator;
 	}
 	
+	public ArrayList<String> checkInformations(){
+		ArrayList<String> errors = new ArrayList<>();
+		if (Utils.isBlankString(this.pseudo)) {
+			errors.add("Le pseudo est manquant");		
+		}
+		
+		if (!this.pseudo.matches("^[a-zA-Z0-9]*$")) {
+			errors.add("Le pseudo doit être composé uniquement de caractère alphanumérique !");
+		}
+		
+		if (Utils.isBlankString(this.name)) {
+			errors.add("Le nom est manquant");		
+		}
+		if (Utils.isBlankString(this.first_name)) {
+			errors.add("Le prÃ©nom est manquant");		
+		}
+		if (Utils.isBlankString(this.mail)) {
+			errors.add("L'email est manquant");		
+		}
+		if (Utils.isBlankString(this.address)) {
+			errors.add("L'adresse est manquante");		
+		}
+		if (Utils.isBlankString(this.city)) {
+			errors.add("La ville est manquante");		
+		}
+		if (Utils.isBlankString(this.zip_code)) {
+			errors.add("Le code postal est manquant");		
+		}
+		if (Utils.isBlankString(this.password)) {
+			errors.add("Le mot de passe est manquant");		
+		}
+		return errors;
+	}
+
+	@Override
+	public String toString() {
+		return "User [no_user=" + no_user + ", pseudo=" + pseudo + ", name=" + name + ", first_name=" + first_name
+				+ ", mail=" + mail + ", phone_number=" + phone_number + ", address=" + address + ", zip_code="
+				+ zip_code + ", city=" + city + ", password=" + password + ", credit=" + credit + ", isAdministrator="
+				+ isAdministrator + "]";
+	}
+	
+	
+		
 }
 
 
