@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.BLLException;
 import fr.eni.encheres.bll.UsersManager;
@@ -41,24 +42,36 @@ public class UserProfil extends HttpServlet {
 		UsersManager usersManager = new UsersManager();
 		User userToDisplay = null;
 		String errorMessage = "";
+		String redirectServlet = "WEB-INF/Home.jsp";
 		
-		try {
-			userToDisplay = usersManager.getUserById(1); // TODO : Mettre l'id de la variable de session
-		} catch (BLLException bllException) {
-			errorMessage = "Failed to get user " + 1; 
-		}
+		HttpSession session = request.getSession();
 		
-		if (userToDisplay != null) {
-			request.setAttribute("user", userToDisplay);
-		}else {
-			request.setAttribute("errorMessage", errorMessage);
-		}
+		if(session != null && session.getAttribute("idUserConnected") != null) {
 			
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/userProfil.jsp");
+			int idUserConnected = (int) session.getAttribute("idUserConnected");
+			
+			try {
+				userToDisplay = usersManager.getUserById(idUserConnected);
+			} catch (BLLException bllException) {
+				errorMessage = "Une erreur est survenue pour l'affichage de votre profil"; 
+			}
+			
+			if (userToDisplay != null) {
+				request.setAttribute("user", userToDisplay);
+				redirectServlet = "WEB-INF/userProfil.jsp";
+			}
+		}else {
+			errorMessage = "Vous devez vous connecter pour accèder à votre profil"; 
+		}
+		
+		if(!errorMessage.isBlank()) {
+			request.setAttribute("errors", errorMessage);
+		}
+				
+		RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);
 		
 		if(rd != null) {
 			rd.forward(request, response);
 		}
 	}
-
 }

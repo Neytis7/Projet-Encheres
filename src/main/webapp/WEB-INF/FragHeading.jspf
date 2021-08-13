@@ -16,6 +16,7 @@
 	         
 	         <c:otherwise>
            		<a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sign-out">Sign out</a>
+           		<a class="nav-item nav-link active" href="<%=request.getContextPath() %>/user-profil">Profile</a>
            		<span style="position:relative;left:100%;" class="navbar-text text-primary">${firstNameUserConnected} ${nameUserConnected}</span>
          	</c:otherwise>
          </c:choose>

@@ -139,11 +139,14 @@ public class UserDaoImpl {
 								resultSet.getString("mot_de_passe"),	
 								resultSet.getInt("credit"),	
 								resultSet.getByte("administrateur") != 0);
+			}else {
+				throw new DALException(new Exception("L'utilisateur n'existe pas"));
 			}
-			System.out.println(user.toString());
-			return user;
+			
+			
 		}catch(SQLException exception) {
 			throw new DALException(new Exception("Erreur lors de r�cup�ration de l'utilisateur " + idUser));
 		}
+		return user;
 	}
 }
