@@ -78,10 +78,9 @@ public class UserDaoImpl {
 								resultSet.getInt("credit"),	
 								resultSet.getByte("administrateur") != 0);
 			}
-			System.out.println(user.toString());
 			return user;
 		}catch(SQLException exception) {
-			throw new DALException(new Exception("Erreur lors de r�cup�ration de l'utilisateur " + idUser));
+			throw new DALException(new Exception("An error occured while get user with id " + idUser));
 		}
 	}
 }
