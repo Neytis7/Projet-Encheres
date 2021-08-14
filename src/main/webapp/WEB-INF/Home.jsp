@@ -22,6 +22,15 @@
 					</div>
 				</c:forEach>
 				
+				<c:if test="${not empty success}">	
+					<div class="alert alert-success alert-dismissible fade show" role="alert" style="width:35%;">
+					  ${success}
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+				</c:if>
+				
 	  			<h2>Auction list</h2>  
 	  			Filter :
 				<form class="form-inline mr-auto">

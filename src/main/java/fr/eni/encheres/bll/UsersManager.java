@@ -21,8 +21,8 @@ public class UsersManager {
 		isNotNull(idUser);
 		try {
 			return usersDAO.selectUserById(idUser);
-		} catch (DALException dalException) {
-			throw new BLLException(new Exception("La r�cup�ration de l'utilisateur � �chou�e."));
+		} catch (DALException exception) {
+			throw new BLLException(new Exception("La récupération de l'utilisateur à échoué."));
 		}
 	}
     
@@ -89,9 +89,9 @@ public class UsersManager {
 		}
 	}
     
-    private void isNotNull(int idUser) throws fr.eni.encheres.bll.BLLException {
+    private void isNotNull(int idUser) throws BLLException {
 		if(idUser == 0) {
-			throw new BLLException(new Exception("L'id user pass� en param�tre est �gal � 0."));
+			throw new BLLException(new Exception("L'id user passé en paramètre est égal à 0."));
 		}
 	}
 }
