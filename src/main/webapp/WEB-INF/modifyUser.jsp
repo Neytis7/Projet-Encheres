@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Encheres | Inscription</title>
+		<title>Encheres | Modification du profil</title>
 		<%@ include file="includeCDN.jsp" %>
 	</head>
 	<body>

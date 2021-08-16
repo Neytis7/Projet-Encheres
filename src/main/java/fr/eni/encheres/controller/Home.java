@@ -40,6 +40,11 @@ public class Home extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    String successMessage = (String) request.getAttribute("successMessage");
+    if(successMessage != null) {
+		request.setAttribute("success", successMessage);
+	}
+    
     List<Category> listCategories = null;
     try {
       listCategories = categoryManager.getAllCategories();
@@ -69,7 +74,7 @@ public class Home extends HttpServlet {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
+    
     request.setAttribute("listArticles", listArticles);
 
     RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");

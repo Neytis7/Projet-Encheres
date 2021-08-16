@@ -105,8 +105,9 @@ public class ArticleDaoImpl implements ArticleDAO {
       String password = res.getString("mot_de_passe");
       int credit = res.getInt("credit");
       boolean isAdministrator = res.getBoolean("administrateur");
+      boolean isDeleteAccount = res.getBoolean("estSupprimee");
       User user = new User(no_user, pseudo, name, first_name, mail, phone_number, address, zip_code,
-          city, password, credit, isAdministrator);
+          city, password, credit, isAdministrator, isDeleteAccount);
 
       Article article = new Article(no_article, name_article, description, start_date, end_date,
           initial_price, sell_price, user, category, isDelete);
@@ -167,8 +168,9 @@ public class ArticleDaoImpl implements ArticleDAO {
       String password = res.getString("mot_de_passe");
       int credit = res.getInt("credit");
       boolean isAdministrator = res.getBoolean("administrateur");
+      boolean isDeleteAccount = res.getBoolean("estSupprimee");
       User user = new User(no_user, pseudo, name, first_name, mail, phone_number, address, zip_code,
-          city, password, credit, isAdministrator);
+          city, password, credit, isAdministrator, isDeleteAccount);
 
       Article article = new Article(no_article, name_article, description, start_date, end_date,
           initial_price, sell_price, user, category, isDelete);
@@ -216,8 +218,9 @@ public class ArticleDaoImpl implements ArticleDAO {
       String password = res.getString("mot_de_passe");
       int credit = res.getInt("credit");
       boolean isAdministrator = res.getBoolean("administrateur");
+      boolean isDeleteAccount = res.getBoolean("estSupprimee");
       User user = new User(no_user, pseudo, name, first_name, mail, phone_number, address, zip_code,
-          city, password, credit, isAdministrator);
+          city, password, credit, isAdministrator, isDeleteAccount);
 
       Article article = new Article(no_article, name_article, description, start_date, end_date,
           initial_price, sell_price, user, categoryBis, isDelete);
@@ -263,8 +266,9 @@ public class ArticleDaoImpl implements ArticleDAO {
       String password = res.getString("mot_de_passe");
       int credit = res.getInt("credit");
       boolean isAdministrator = res.getBoolean("administrateur");
+      boolean isDeleteAccount = res.getBoolean("administrateur");
       User user = new User(no_user, pseudo, name, first_name, mail, phone_number, address, zip_code,
-          city, password, credit, isAdministrator);
+          city, password, credit, isAdministrator, isDeleteAccount);
 
       Article article = new Article(no_article, name_article, description, start_date, end_date,
           initial_price, sell_price, user, categoryBis, isDelete);
