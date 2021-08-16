@@ -15,4 +15,6 @@ public interface ArticleDAO {
 
   List<Article> FilterCategory(String category) throws Exception;
 
+  int insert(Article article) throws DALException;
+
 }

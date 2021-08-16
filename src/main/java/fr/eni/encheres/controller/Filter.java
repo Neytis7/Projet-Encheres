@@ -33,7 +33,7 @@ public class Filter extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("./Home");
     if (rd != null) {
       rd.forward(request, response);
     }
@@ -45,7 +45,6 @@ public class Filter extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     String search = "";
 
     String category = "";
@@ -70,8 +69,11 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            request.setAttribute("filterList", filterList);
-            doGet(request, response);
+            if (filterList.size() > 0) {
+              request.setAttribute("filterList", filterList);
+            } else {
+              request.setAttribute("noArticle", true);
+            }
 
             /* Case 2 : Search + Category */
           } else {
@@ -83,8 +85,11 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            request.setAttribute("filterList", filterList);
-            doGet(request, response);
+            if (filterList.size() > 0) {
+              request.setAttribute("filterList", filterList);
+            } else {
+              request.setAttribute("noArticle", true);
+            }
           }
         }
         /* Search OFF */
@@ -92,13 +97,8 @@ public class Filter extends HttpServlet {
       } else {
         if (request.getParameter("category") != null) {
           category = String.valueOf(request.getParameter("category"));
-          if (category.equals("Toutes")) {
-            RequestDispatcher rd = request.getRequestDispatcher("./Home");
-            if (rd != null) {
-              rd.forward(request, response);
-            }
-            /* Case 4 : Just Category */
-          } else {
+          /* Case 4 : Just Category */
+          if (!category.equals("Toutes")) {
             try {
               filterList = articleManager.FilterCategory(category);
               filterList = articleManager.getPrice(filterList);
@@ -107,12 +107,15 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            request.setAttribute("filterList", filterList);
-            doGet(request, response);
+            if (filterList.size() > 0) {
+              request.setAttribute("filterList", filterList);
+            } else {
+              request.setAttribute("noArticle", true);
+            }
           }
         }
       }
     }
+    doGet(request, response);
   }
-
 }

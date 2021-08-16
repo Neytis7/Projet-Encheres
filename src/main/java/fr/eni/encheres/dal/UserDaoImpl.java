@@ -151,11 +151,14 @@ public class UserDaoImpl {
 								resultSet.getString("mot_de_passe"),	
 								resultSet.getInt("credit"),	
 								resultSet.getByte("administrateur") != 0);
+			}else {
+				throw new DALException(new Exception("L'utilisateur n'existe pas"));
 			}
-			return user;
+				
 		}catch(SQLException exception) {
 			throw new DALException(new Exception("An error occured while get user with id " + idUser));
 		}
+		return user;
 	}
     
     public boolean updateUserByID(User userToUpdate) throws DALException {

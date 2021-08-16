@@ -3,14 +3,15 @@ package fr.eni.encheres.bll;
 import java.util.List;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.dal.ArticleDAO;
-import fr.eni.encheres.dal.jdbc.ArticleDAOJdbcImpl;
+import fr.eni.encheres.dal.ArticleDaoImpl;
+import fr.eni.encheres.dal.DALException;
 
 public class ArticleManager {
 
   private static ArticleManager instance = null;
 
   public ArticleManager() {
-    articleDAO = new ArticleDAOJdbcImpl();
+    articleDAO = new ArticleDaoImpl();
   }
 
   public synchronized static ArticleManager getInstance() {
@@ -73,4 +74,11 @@ public class ArticleManager {
     return listArticles;
   }
 
+  public int createArticle(Article article) throws BLLException {
+    try {
+      return articleDAO.insert(article);
+    } catch (DALException exception) {
+      throw new BLLException(new Exception("L'insertion de l'article à échoué."));
+    }
+  }
 }
