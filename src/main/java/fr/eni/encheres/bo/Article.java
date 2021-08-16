@@ -1,6 +1,8 @@
 package fr.eni.encheres.bo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Article {
 
@@ -15,6 +17,7 @@ public class Article {
   private Category category;
   private boolean isDelete;
   private int price_auction = 0;
+  private List<Auction> listAuction = new ArrayList<Auction>();
 
   public Article(int no_article, String name_article, String description, Date start_date,
       Date end_date, int initial_price, int sell_price, User user, Category category,
@@ -34,16 +37,22 @@ public class Article {
 
 
 
+  public List<Auction> getListAuction() {
+    return listAuction;
+  }
+
+  public void setListAuction(List<Auction> listAuction) {
+    this.listAuction = listAuction;
+  }
+
   public int getPrice_auction() {
     return price_auction;
   }
 
 
-
   public void setPrice_auction(int a) {
     this.price_auction = a;
   }
-
 
 
   public int getNo_article() {

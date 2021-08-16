@@ -16,7 +16,9 @@ public class User {
   private String password;
   private int credit;
   private boolean isAdministrator;
-  private List<Article> listArticle = new ArrayList<Article>();
+  private List<Article> listArticleSell = new ArrayList<Article>();
+  private List<Article> listArticleBuy = new ArrayList<Article>();
+  private List<Auction> listAuctionCompleted = new ArrayList<Auction>();
 
   public User(int no_user, String pseudo, String name, String first_name, String mail,
       String phone_number, String address, String zip_code, String city, String password,
@@ -40,22 +42,29 @@ public class User {
 
 
 
-  public List<Article> getListArticle() {
-    return listArticle;
+  public List<Auction> getListAuctionCompleted() {
+    return listAuctionCompleted;
   }
 
-
-
-  public void setListArticle(List<Article> listArticle) {
-    this.listArticle = listArticle;
+  public void setListAuctionCompleted(List<Auction> listAuctionCompleted) {
+    this.listAuctionCompleted = listAuctionCompleted;
   }
 
-
-
-  public void add(Article a) {
-    listArticle.add(a);
+  public List<Article> getListArticleSell() {
+    return listArticleSell;
   }
 
+  public void setListArticleSell(List<Article> listArticleSell) {
+    this.listArticleSell = listArticleSell;
+  }
+
+  public List<Article> getListArticleBuy() {
+    return listArticleBuy;
+  }
+
+  public void setListArticleBuy(List<Article> listArticleBuy) {
+    this.listArticleBuy = listArticleBuy;
+  }
 
   public int getNo_user() {
     return no_user;
