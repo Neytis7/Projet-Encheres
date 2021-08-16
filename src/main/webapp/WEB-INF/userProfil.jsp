@@ -12,7 +12,7 @@
 		<div class="container">
 			<p class="display-3">Mon profil</p>
 			<c:if test="${user != null}">	
-				<div style="margin-left : 40%;margin-right: 60%; width : 40%;margin-top: 10%;">
+				<div style="margin-left : 40%;margin-right: 60%; width : 45%;margin-top: 10%;">
 					<dl class="row">
 			  			<dt class="col-sm-3">Pseudo :</dt>
 			  			<dd class="col-sm-9">${user.pseudo}</dd>
@@ -39,9 +39,7 @@
 			  			<dd class="col-sm-9">${user.city}</dd>	
 					</dl>
 				</div>
-				<form method="GET" action="./modify-user" style="margin: 0 45% 0 45%">
-					<button class="btn btn-success btn-lg" style="margin: 0 45% 0 45%">Modifier</button>
-				</form>	
+				<a href="./modify-user" class="btn btn-success btn-lg" style="margin: 0 45% 0 45%">Modifier</a>
 			</c:if>
 		</div>
 	</body>

@@ -37,7 +37,7 @@
 					<label for="categoyItem">Categorie :</label>
 					<select class="browser-default custom-select" name="categoyItem">	  					
 	  					<c:forEach var="category" items="${categories}">
-	  						<option value="${category.no_category}">${category.name_category}</option>
+	  						<option value="${category.no_category}">${category.libelle}</option>
 	  					</c:forEach>
 					</select>
 				</div>

@@ -52,7 +52,7 @@ public class signIn extends HttpServlet {
     String btnSignIn = request.getParameter("btnSignIn");
     List<String> errors = new ArrayList<>();
     UsersManager usersManager = new UsersManager();
-    String redirectServlet = "./sign-in";
+    String redirectServlet = "WEB-INF/sign-in.jsp";
     ArrayList<Object> array = new ArrayList<>();
     User userConnected = null;
     HttpSession session = request.getSession();
