@@ -16,7 +16,7 @@ import fr.eni.encheres.bo.User;
 /**
  * Servlet implementation class UserProfile
  */
-@WebServlet("/user-profil")
+@WebServlet(description = "user profile servlet", urlPatterns = { "/user-profile" })
 public class UserProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,13 +31,6 @@ public class UserProfil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UsersManager usersManager = new UsersManager();
 		User userToDisplay = null;
 		String errorMessage = "";
@@ -53,12 +46,19 @@ public class UserProfil extends HttpServlet {
 		}else {
 			request.setAttribute("errorMessage", errorMessage);
 		}
-			
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/userProfil.jsp");
 		
 		if(rd != null) {
 			rd.forward(request, response);
 		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+		
 	}
 
 }

@@ -36,8 +36,10 @@ public class User {
     this.credit = credit;
     this.isAdministrator = isAdministrator;
     if (phone_number != null) {
-      this.phone_number = phone_number;
-    }
+		this.phone_number = phone_number;
+	} else {
+		this.phone_number = "" ;
+	}
   }
 
 
@@ -46,6 +48,7 @@ public class User {
 		this.pseudo = pseudo;
 		this.mail = mail;
 	}
+
 
 	public User(String pseudo, String name, String first_name, String mail,
 		      String phone_number, String address, String zip_code, String city, String password,
@@ -61,11 +64,12 @@ public class User {
 		    this.password = password;
 		    this.credit = credit;
 		    this.isAdministrator = isAdministrator;
-		    if (phone_number != null) {
-		      this.phone_number = phone_number;
-		    }
-		  }
-
+		   	if (phone_number != null) {
+			    this.phone_number = phone_number;
+            } else {
+                this.phone_number = "" ;
+            }
+	}
 
   public List<Auction> getListAuctionCompleted() {
     return listAuctionCompleted;
@@ -186,5 +190,47 @@ public class User {
   public void setAdministrator(boolean isAdministrator) {
     this.isAdministrator = isAdministrator;
   }
+
+  	public ArrayList<String> checkInformations(){
+		ArrayList<String> errors = new ArrayList<>();
+		if (Utils.isBlankString(this.pseudo)) {
+			errors.add("Le pseudo est manquant");		
+		}
+		
+		if (!this.pseudo.matches("^[a-zA-Z0-9]*$")) {
+			errors.add("Le pseudo doit �tre compos� uniquement de caract�re alphanum�rique !");
+		}
+		
+		if (Utils.isBlankString(this.name)) {
+			errors.add("Le nom est manquant");		
+		}
+		if (Utils.isBlankString(this.first_name)) {
+			errors.add("Le prénom est manquant");		
+		}
+		if (Utils.isBlankString(this.mail)) {
+			errors.add("L'email est manquant");		
+		}
+		if (Utils.isBlankString(this.address)) {
+			errors.add("L'adresse est manquante");		
+		}
+		if (Utils.isBlankString(this.city)) {
+			errors.add("La ville est manquante");		
+		}
+		if (Utils.isBlankString(this.zip_code)) {
+			errors.add("Le code postal est manquant");		
+		}
+		if (Utils.isBlankString(this.password)) {
+			errors.add("Le mot de passe est manquant");		
+		}
+		return errors;
+	}
+
+	@Override
+	public String toString() {
+		return "User [no_user=" + no_user + ", pseudo=" + pseudo + ", name=" + name + ", first_name=" + first_name
+				+ ", mail=" + mail + ", phone_number=" + phone_number + ", address=" + address + ", zip_code="
+				+ zip_code + ", city=" + city + ", password=" + password + ", credit=" + credit + ", isAdministrator="
+				+ isAdministrator + "]";
+	}
 
 }
