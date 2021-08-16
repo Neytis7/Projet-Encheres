@@ -47,6 +47,26 @@ public class User {
 		this.mail = mail;
 	}
 
+	public User(String pseudo, String name, String first_name, String mail,
+		      String phone_number, String address, String zip_code, String city, String password,
+		      int credit, boolean isAdministrator) {
+		    super();
+		    this.pseudo = pseudo;
+		    this.name = name;
+		    this.first_name = first_name;
+		    this.mail = mail;
+		    this.address = address;
+		    this.zip_code = zip_code;
+		    this.city = city;
+		    this.password = password;
+		    this.credit = credit;
+		    this.isAdministrator = isAdministrator;
+		    if (phone_number != null) {
+		      this.phone_number = phone_number;
+		    }
+		  }
+
+
   public List<Auction> getListAuctionCompleted() {
     return listAuctionCompleted;
   }
