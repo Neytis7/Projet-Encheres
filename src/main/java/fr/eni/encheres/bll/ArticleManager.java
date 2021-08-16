@@ -71,6 +71,14 @@ public class ArticleManager {
       e.printStackTrace();
     }
     return listArticles;
-  }
-
+     } 
+     
+	public int creerArticle(Article article) throws BLLException {
+		
+		try {
+			return articleDAO.insert(article);
+		} catch (DALException exception) {
+			throw new BLLException(new Exception("L'insertion de l'article à échoué."));
+		}
+	}
 }

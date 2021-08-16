@@ -1,9 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 <%@ include file="taglib.jsp" %>
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ENI-Auction</title>
+		<%@ include file="includeCDN.jsp" %>
+	</head>
+	<body>
+		<%@ include file="/WEB-INF/FragHeading.jspf"%>
+		<main>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="CSS/bootstrap.min.css">
@@ -14,6 +21,22 @@
 	<%@ include file="/WEB-INF/FragHeading.jspf"%>
 	<main>
 		<div class="container">
+            				<c:forEach var="error" items="${errors}">	
+					<div class="alert alert-danger alert-dismissible fade show" role="alert" style="width:35%;">
+					  ${error}
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					  </button>
+					</div>
+				</c:forEach>
+					    <span aria-hidden="true">&times;</span>
+				<c:if test="${not empty success}">	
+					<div class="alert alert-success alert-dismissible fade show" role="alert" style="width:35%;">
+					  ${success}
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+				</c:if>
   			<h2>Auction list</h2>  
   			Filter :
 			<form action="${pageContext.request.contextPath }/Filter" method="post" class="form-inline mr-auto">
