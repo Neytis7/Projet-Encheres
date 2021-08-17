@@ -195,10 +195,8 @@ public class User {
 		ArrayList<String> errors = new ArrayList<>();
 		if (Utils.isBlankString(this.pseudo)) {
 			errors.add("Le pseudo est manquant");		
-		}
-		
-		if (!this.pseudo.matches("^[a-zA-Z0-9]*$")) {
-			errors.add("Le pseudo doit �tre compos� uniquement de caract�re alphanum�rique !");
+		}else if (!this.pseudo.matches("^[a-zA-Z0-9]*$")) {
+			errors.add("Le pseudo doit être composé uniquement de caractère alphanumérique !");
 		}
 		
 		if (Utils.isBlankString(this.name)) {
