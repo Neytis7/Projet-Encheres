@@ -21,51 +21,66 @@
 				</div>
 			</c:forEach>
 			
+			
+			<c:if test="${not empty infoUser }">
+			
+				<c:set var="pseudo" value="${infoUser.pseudo }"></c:set>
+				<c:set var="name" value="${infoUser.name }"></c:set>
+				<c:set var="firstName" value="${infoUser.first_name }"></c:set>
+				<c:set var="email" value="${infoUser.mail }"></c:set>
+				<c:set var="phone" value="${infoUser.phone_number }"></c:set>
+				<c:set var="address" value="${infoUser.address }"></c:set>
+				<c:set var="city" value="${infoUser.zip_code }"></c:set>
+				<c:set var="zipcode" value="${infoUser.city }"></c:set>
+				<c:set var="password" value="${infoUser.password }"></c:set>
+			
+			</c:if>
+			
 			<form method="POST" action="./sign-up" class="col-6">
 			
 				<div class="form-group">
 					<label for="pseudoUser">pseudo :</label>
-					<input type="text" class="form-control" id="pseudoUser" name="pseudoUser" required>
+					<input type="text" class="form-control" id="pseudoUser" name="pseudoUser" value="${pseudo}" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="nameUser">nom :</label>
-					<input type="text" class="form-control" id="nameUser" name="nameUser" required>
+					<input type="text" class="form-control" id="nameUser" name="nameUser" value="${name}" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="fistNameUser">prenom :</label>
-					<input type="text" class="form-control" id="fistNameUser" name="firstNameUser" required>
+					<input type="text" class="form-control" id="fistNameUser" name="firstNameUser" value="${firstName}" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="mailUser">email :</label>
-					<input type="email" class="form-control" id="mailUser" name="mailUser" required>
+					<input type="email" class="form-control" id="mailUser" name="mailUser" value="${email}" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="phoneNumberUser">numéro de téléphone :</label>
-					<input type="tel" class="form-control" id="phoneNumberUser" name="phoneNumberUser">
+					<input type="tel" class="form-control" id="phoneNumberUser" name="phoneNumberUser" value="${phone}">
 				</div>
 		
 				<div class="form-group">
 					<label for="addressUser">n° et nom de rue :</label>
-					<input type="text" class="form-control" id="addressUser" name="addressUser" required>
+					<input type="text" class="form-control" id="addressUser" name="addressUser" value="${address}" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="cityUser">ville :</label>
-					<input type="text" class="form-control" id="cityUser" name="cityUser" required>
+					<input type="text" class="form-control" id="cityUser" name="cityUser" value="${city}" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="zipCodeUser">code postal :</label>
-					<input type="text" class="form-control" id="zipCodeUser" name="zipCodeUser" required>
+					<input type="text" class="form-control" id="zipCodeUser" name="zipCodeUser" value="${zipcode}" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="passwordUser">mot de passe :</label>
-					<input type="password" class="form-control" id="passwordUser" name="passwordUser" required>
+					<input type="password" class="form-control" id="passwordUser" name="passwordUser" value="${password}" required>
 				</div>
 				
 				<div class="form-group">
