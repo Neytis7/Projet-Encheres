@@ -10,6 +10,11 @@ public class Category {
     this.no_category = no_category;
     this.libelle = libelle;
   }
+  
+  public Category(String libelle) {
+	    super();
+	    this.libelle = libelle;
+	  }
 
   public int getNo_category() {
     return no_category;
