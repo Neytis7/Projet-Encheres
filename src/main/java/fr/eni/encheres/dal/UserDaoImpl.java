@@ -29,7 +29,7 @@ public class UserDaoImpl {
 													+ " mot_de_passe = (?)"
 													+ " WHERE no_utilisateur = (?)";
     
-	private static final String SELECT_USER_BY_LOGIN = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE (pseudo = (?) or email = (?)) and estSupprimee = (?)";
+	private static final String SELECT_USER_BY_LOGIN = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE (pseudo = (?) or email = (?)) and mot_de_passe = (?)";
 	
 	private static final String SELECT_ALL_USERS = "USE DB_ENCHERES SELECT pseudo, email FROM UTILISATEURS where estSupprimee = (?)";
 	
@@ -75,7 +75,7 @@ public class UserDaoImpl {
 		return success;	
 	}
 
-	public User getUserByLogin(String loginUser) throws DALException {
+	public User getUserByLogin(String loginUser, String password) throws DALException {
 
 		ResultSet result;
 		User user = null;
@@ -85,7 +85,7 @@ public class UserDaoImpl {
 			PreparedStatement ps = connection.prepareStatement(SELECT_USER_BY_LOGIN);	
 			ps.setString(1, loginUser);
 			ps.setString(2, loginUser);
-			ps.setInt(3, User.ACTIVE_ACCOUNT);
+			ps.setString(3, password);
 			result = ps.executeQuery();
 			
 			if(result.next()) {

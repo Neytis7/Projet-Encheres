@@ -64,17 +64,15 @@ public class UsersManager {
     boolean access = false;
 
     try {
-      user = usersDAO.getUserByLogin(loginUser);
-    
+      user = usersDAO.getUserByLogin(loginUser, password);
+ 
       if (user != null) {
-        if (password.trim().equals(user.getPassword()) && (loginUser.trim().equals(user.getPseudo())
-            || loginUser.trim().equals(user.getMail()))) {
-
+    	  if(user.isDelete() == Boolean.parseBoolean(String.valueOf(User.ACTIVE_ACCOUNT))){
         	access = true;
+    	  }
         	
           array.add(user);
           array.add(access);
-        }
       }
     } catch (DALException e) {
       throw new BLLException(new Exception("La connexion a échoué"));
