@@ -16,6 +16,9 @@ public class UserDaoImpl {
 			+ "(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 	private static final String SELECT_USER_ID = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE no_utilisateur = (?) ";
+
+	private static final String SELECT_USER_BY_ID_ARTICLE = "USE DB_ENCHERES SELECT * FROM UTILISATEURS u INNER JOIN ARTICLES_VENDUS a ON a.no_utilisateur = u.no_utilisateur "
+															+ " WHERE a.no_article = (?) ";
 	
 	private static final String UPDATE_USER_BY_ID = "USE DB_ENCHERES UPDATE UTILISATEURS "
 													+ " SET pseudo = (?),"
@@ -160,6 +163,38 @@ public class UserDaoImpl {
 		}
 		return user;
 	}
+    
+    public User selectUserByIdArticle(int idArticle) throws DALException {
+		User user= null;
+		try {
+			Connection connexion = ConnexionProvider.getConnection();
+			PreparedStatement preparedStatement = connexion.prepareStatement(SELECT_USER_BY_ID_ARTICLE);	
+			preparedStatement.setInt(1,idArticle);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				user = new User(resultSet.getInt("no_utilisateur"),
+								resultSet.getString("pseudo"),	
+								resultSet.getString("nom"),	
+								resultSet.getString("prenom"),	
+								resultSet.getString("email"),	
+								resultSet.getString("telephone"),	
+								resultSet.getString("rue"),	
+								resultSet.getString("code_postal"),	
+								resultSet.getString("ville"),	
+								resultSet.getString("mot_de_passe"),	
+								resultSet.getInt("credit"),	
+								resultSet.getByte("administrateur") != 0);
+			}else {
+				throw new DALException(new Exception("L'utilisateur n'existe pas"));
+			}
+				
+		}catch(SQLException exception) {
+			throw new DALException(new Exception("An error occured while get user on article " + idArticle));
+		}
+		return user;
+    }
+    
     
     public boolean updateUserByID(User userToUpdate) throws DALException {
     	boolean success = false;

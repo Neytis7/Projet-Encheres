@@ -30,6 +30,10 @@ public class ArticleDaoImpl implements ArticleDAO {
   private static final String FILTER_NONE_CATEGORY =
       "USE DB_ENCHERES SELECT * FROM ARTICLES_VENDUS INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie WHERE est_supprime = 0 AND date_debut_encheres<=GETDATE() AND GETDATE()<date_fin_encheres AND libelle = ";
 
+  private static final String SELECT_ARTICLE_BY_ID = "USE DB_ENCHERES SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente "
+										  		+ " FROM ARTICLES_VENDUS "
+										  		+ " WHERE no_article = (?) ";
+  
   // TODO: update la requete
 
   @Override
@@ -274,4 +278,36 @@ public class ArticleDaoImpl implements ArticleDAO {
     }
     return listArticles;
   }
+
+
+  @Override
+  public Article getArticleById(int idArticle) throws DALException {
+		
+	  Article article= null;
+		try {
+			Connection connexion = ConnexionProvider.getConnection();
+			PreparedStatement preparedStatement = connexion.prepareStatement(SELECT_ARTICLE_BY_ID);	
+			preparedStatement.setInt(1,idArticle);
+			ResultSet resultSet = preparedStatement.executeQuery();
+		
+			if(resultSet.next()) {	
+				article = new Article(idArticle,
+									resultSet.getString("nom_article"),	
+									resultSet.getString("description"),	
+									resultSet.getDate("date_debut_encheres").toLocalDate(),	
+									resultSet.getDate("date_fin_encheres").toLocalDate(),	
+									resultSet.getInt("prix_initial"),	
+									resultSet.getInt("prix_vente"));
+				System.out.println(article);
+			} else {
+				throw new DALException(new Exception("L'article n'existe pas"));
+			}
+				
+		}catch(SQLException exception) {
+			throw new DALException(new Exception("An error occured while get article with id " + idArticle));
+		}
+		return article;
+  }
+
+  
 }

@@ -56,7 +56,7 @@
 							<div class="col-sm-6">
 								<div class="card">
 									<div class="card-body">
-										<a href="#" class="btn btn-dark">${article.name_article }</a>
+										<a href="./sell-detail?id=${article.no_article}" class="btn btn-dark">${article.name_article }</a>
 										<c:choose>
 											<c:when test="${article.price_auction > 0 }">
 												<p class="card-text">Price : ${article.price_auction }</p>

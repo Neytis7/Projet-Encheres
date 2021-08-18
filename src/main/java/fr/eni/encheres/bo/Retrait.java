@@ -67,4 +67,9 @@ public class Retrait {
 		
 		return errors;
 	}
+	
+	
+	public String displayFullAddress() {
+		return this.address + "\n" + this.code_postal + "\n" + this.city;
+	}
 }

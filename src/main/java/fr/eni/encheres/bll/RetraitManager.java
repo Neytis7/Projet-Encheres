@@ -20,4 +20,13 @@ public class RetraitManager {
 			throw new BLLException(new Exception("La création de l'adresse de retrait à échoué."));
 		}
 	}
+	
+	public Retrait getRetraitByIdArticle(int idArticle) throws BLLException {
+		
+		try {
+			return retraitDAO.getRetraitByIdArticle(idArticle);
+		} catch (DALException exception) {
+			throw new BLLException(new Exception("La récupération du point de retrait à échoué."));
+		}
+	}
 }

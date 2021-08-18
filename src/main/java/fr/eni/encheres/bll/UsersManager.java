@@ -26,6 +26,15 @@ public class UsersManager {
     }
   }
 
+
+  public User getUserByIdArticle(int idArticle) throws BLLException {
+    try {
+      return usersDAO.selectUserById(idArticle);
+    } catch (DALException dalException) {
+      throw new BLLException(new Exception("La r�cup�ration de l'utilisateur � �chou�e."));
+    }
+  }
+  
   public ArrayList<String> signUpUser(User user) throws BLLException {
 
     isNotNull(user);
