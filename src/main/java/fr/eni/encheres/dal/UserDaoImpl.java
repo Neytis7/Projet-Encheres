@@ -1,10 +1,12 @@
 package fr.eni.encheres.dal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import fr.eni.encheres.bo.User;
@@ -26,6 +28,8 @@ public class UserDaoImpl {
 													+ " rue = (?),"
 													+ " code_postal = (?),"
 													+ " ville = (?),"
+													+ " token = (?),"
+													+ " passwordTokenDate = (?),"
 													+ " mot_de_passe = (?)"
 													+ " WHERE no_utilisateur = (?)";
     
@@ -86,6 +90,11 @@ public class UserDaoImpl {
 			result = ps.executeQuery();
 			
 			if(result.next()) {
+				LocalDate tokenDatePassword = null; 
+				if(result.getDate("passwordTokenDate") != null) {
+					tokenDatePassword = result.getDate("passwordTokenDate").toLocalDate();
+				}
+				
 				user = new User(
 						result.getInt("no_utilisateur"),
 						result.getString("pseudo"),
@@ -98,7 +107,9 @@ public class UserDaoImpl {
 						result.getString("ville"),
 						result.getString("mot_de_passe"),
 						result.getInt("credit"),
-						result.getByte("administrateur") != 0
+						result.getByte("administrateur") != 0,
+						result.getString("token"),
+						tokenDatePassword						
 				);
 			}
 		}catch(SQLException exception) {
@@ -163,6 +174,12 @@ public class UserDaoImpl {
     
     public boolean updateUserByID(User userToUpdate) throws DALException {
     	boolean success = false;
+    	Date dateTokenPassword = null;
+    	
+    	if(userToUpdate.getTokenPasswordDate() != null) {
+    		dateTokenPassword = Date.valueOf(userToUpdate.getTokenPasswordDate());
+    	}
+    	
     	try {
 			Connection connexion = ConnexionProvider.getConnection();
 			PreparedStatement preparedStatement = connexion.prepareStatement(UPDATE_USER_BY_ID);
@@ -174,8 +191,11 @@ public class UserDaoImpl {
 			preparedStatement.setString(6, userToUpdate.getAddress());
 			preparedStatement.setString(7, userToUpdate.getZip_code());
 			preparedStatement.setString(8, userToUpdate.getCity());
-			preparedStatement.setString(9, userToUpdate.getPassword());
-			preparedStatement.setInt(10, userToUpdate.getNo_user());
+			preparedStatement.setString(9, userToUpdate.getTokenPassword());
+			preparedStatement.setDate(10, dateTokenPassword);
+			preparedStatement.setString(11, userToUpdate.getPassword());
+			preparedStatement.setInt(12, userToUpdate.getNo_user());
+		
 			int result = preparedStatement.executeUpdate();
 			
 			if (result > 0) {
@@ -190,6 +210,4 @@ public class UserDaoImpl {
 		}
     	return success;
     }
-    
-    
 }
