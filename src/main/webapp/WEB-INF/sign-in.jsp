@@ -21,11 +21,17 @@
 				</div>
 			</c:forEach>
 			
+			<c:if test="${not empty rememberMe }">
+				<c:set var="login" value="${rememberMe }"></c:set>
+				<c:set var="checked" value="checked"></c:set>
+			</c:if>
 			<form method="POST" action="./sign-in" class="col-6">
 			
 				<div class="form-group">
 					<label for="loginUser">votre pseudo ou email :</label>
-					<input type="text" class="form-control" id="loginUser" name="loginUser" required>
+					<input type="text" class="form-control" id="loginUser" name="loginUser" value="${login }" required>
+					<label for="rememberMe">Se souvenir de moi</label>
+					<input type="checkbox" name="rememberMe" ${checked}>
 				</div>
 				
 				<div class="form-group">
