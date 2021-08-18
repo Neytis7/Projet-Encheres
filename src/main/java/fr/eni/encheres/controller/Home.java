@@ -30,7 +30,6 @@ public class Home extends HttpServlet {
     super();
     articleManager = ArticleManager.getInstance();
     categoryManager = CategoryManager.getInstance();
-
   }
 
   /**
@@ -40,6 +39,7 @@ public class Home extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    // GET category in base
     List<Category> listCategories = null;
     try {
       listCategories = categoryManager.getAllCategories();
@@ -49,6 +49,7 @@ public class Home extends HttpServlet {
       e1.printStackTrace();
     }
 
+    // If search return 0 article
     if (request.getAttribute("noArticle") != null
         && request.getAttribute("noArticle").equals(true)) {
       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
@@ -58,20 +59,18 @@ public class Home extends HttpServlet {
       }
     }
 
+    // Else GET liste of articles
     List<Article> listArticles = null;
 
     try {
       listArticles = articleManager.getArticlesInProgress();
       listArticles = articleManager.getPrice(listArticles);
-
     } catch (NumberFormatException e) {
       e.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     request.setAttribute("listArticles", listArticles);
-
     RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
     if (rd != null) {
       rd.forward(request, response);
