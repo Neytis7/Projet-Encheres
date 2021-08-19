@@ -115,8 +115,8 @@ public class signIn extends HttpServlet {
               session.setAttribute("firstNameUserConnected", userConnected.getFirst_name());
               redirectServlet = "./Home";
             } else {
-              redirectServlet = "./sign-up";
               errors.add("Ce compte est inactif, veuillez en recrée un autre.");
+              redirectServlet = "WEB-INF/sign-in.jsp";
             }
           } else {
             errors.add("Le login ou le mot de passe est incorrecte !");

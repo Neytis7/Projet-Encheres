@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="modalDeleteAccount" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -12,15 +11,15 @@
       </div>
       <div class="modal-body">
       	<p class="lead text-danger font-weight-bold text-center">
-      		Attention ! Cette action est irrÃ©versible.
+      		Attention ! Cette action est irréversible.
      	</p> 	
       	<p class="lead text-center">
-      		Vos ventes et enchÃ¨res en cours seront Ã©galement supprimer.
-      	 	ÃŠtes-vous sÃ»r de vouloir supprimer votre compte	dÃ©finitivement ? 
+      		Vos ventes et enchères en cours seront également supprimer.
+      	 	Êtes-vous sûr de vouloir supprimer votre compte	définitivement ? 
         </p> 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-lg" data-dismiss="modal">Revenir en lieu sÃ»r</button>
+        <button type="button" class="btn btn-success btn-lg" data-dismiss="modal">Revenir en lieu sûr</button>
         <a href="./DeleteAccount" class="btn btn-danger btn-lg">Suppression du compte</a>
       </div>
     </div>

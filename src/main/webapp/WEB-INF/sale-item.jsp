@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,40 +21,56 @@
 				</div>
 			</c:forEach>
 			
+			<c:if test="${not empty article}">
+				<c:set var="nameArticle" value="${ article.name_article }"></c:set>
+				<c:set var="descriptionArticle" value="${ article.description }"></c:set>
+				<c:set var="idCategory" value="${ idCategory }"></c:set>
+				<c:set var="startDateArticle" value="${ article.start_date}"></c:set>
+				<c:set var="endDateArticle" value="${ article.end_date}"></c:set>
+				<c:set var="priceArticle" value="${ article.initial_price}"></c:set>
+			</c:if>
+			
 			<form method="POST" action="./sale-item" class="col-6">
 			
 				<div class="form-group">
 					<label for="nameItem">Nom :</label>
-					<input type="text" class="form-control" id="nameItem" name="nameItem" required>
+					<input type="text" class="form-control" id="nameItem" name="nameItem" value="${ nameArticle }" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="descriptionItem">Description :</label>
-					<textarea class="form-control" id="descriptionItem" name="descriptionItem" required></textarea>
+					<textarea class="form-control" id="descriptionItem" name="descriptionItem" required>${ descriptionArticle }</textarea>
 				</div>
 				
 				<div class="form-group">
 					<label for="categoyItem">Categorie :</label>
 					<select class="browser-default custom-select" name="categoyItem">	  					
 	  					<c:forEach var="category" items="${categories}">
-	  						<option value="${category.no_category}">${category.libelle}</option>
+	  						<c:choose>
+	  							<c:when test="${ not empty idCategory  && category.no_category == idCategory }">
+	  								<option value="${category.no_category}" selected>${category.libelle}</option>
+	  							</c:when>
+	  							<c:otherwise>
+	  								<option value="${category.no_category}">${category.libelle}</option>
+	  							</c:otherwise>
+	  						</c:choose>
 	  					</c:forEach>
 					</select>
 				</div>
 				
 				<div class="form-group">
 					<label for="priceItem">Mise à prix :</label>
-					<input type="number" class="form-control-file" id="priceItem" name="priceItem" min="1" required>
+					<input type="number" class="form-control-file" id="priceItem" name="priceItem" value="${ priceArticle }" min="1" required>
 				</div>
 		
 				<div class="form-group">
 					<label for="startDateItem">Début de l'enchère</label>
-					<input type="date" class="form-control" id="startDateItem" name="startDateItem" required>
+					<input type="date" class="form-control" id="startDateItem" name="startDateItem" value="${ startDateArticle }" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="endDateItem">Fin de l'enchère :</label>
-					<input type="date" class="form-control" id="endDateItem" name="endDateItem" required>
+					<input type="date" class="form-control" id="endDateItem" name="endDateItem" value="${ endDateArticle }" required>
 				</div>
 				
 				

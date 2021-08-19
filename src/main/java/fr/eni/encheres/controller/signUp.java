@@ -55,13 +55,14 @@ public class signUp extends HttpServlet {
     UsersManager usersManager = new UsersManager();
     String redirectServlet = "WEB-INF/sign-up.jsp";
     HttpSession session = request.getSession();
+    User user = null;
 
     if (btnSignUp != null) {
 
-      User user = new User(request.getParameter("pseudoUser"), request.getParameter("nameUser"),
+      user = new User(request.getParameter("pseudoUser"), request.getParameter("nameUser"),
           request.getParameter("firstNameUser"), request.getParameter("mailUser"),
           request.getParameter("phoneNumberUser"), request.getParameter("addressUser"),
-          request.getParameter("zipCodeUser"),request.getParameter("cityUser"),
+          request.getParameter("zipCodeUser"), request.getParameter("cityUser"),
           request.getParameter("passwordUser"), 0, false);
 
       errors = user.checkInformations();
@@ -76,17 +77,14 @@ public class signUp extends HttpServlet {
             session.setAttribute("firstNameUserConnected", user.getFirst_name());
             redirectServlet = "./Home";
             request.setAttribute("success", "Votre compte a été crée avec succès !");
-          } else {
-            request.setAttribute("errors", errors);
           }
         } catch (BLLException e) {
           errors.add("[erreur] L'inscripton de l'utilisateur à échoué");
         }
-      } else {
-        request.setAttribute("errors", errors);
       }
     }
-
+    request.setAttribute("errors", errors);
+    request.setAttribute("infoUser", user);
     RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);
 
     if (rd != null) {

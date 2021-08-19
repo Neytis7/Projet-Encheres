@@ -50,6 +50,8 @@ public class ModifyUser extends HttpServlet {
 
       if (userToDisplay != null) {
         request.setAttribute("user", userToDisplay);
+      } else {
+        request.setAttribute("errorMessage", errorMessage);
       }
 
     } else {
@@ -59,7 +61,7 @@ public class ModifyUser extends HttpServlet {
 
     RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);
     request.setAttribute("errors", errorMessage);
-    
+
     if (rd != null) {
       rd.forward(request, response);
     }
@@ -71,11 +73,11 @@ public class ModifyUser extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
     String btnValidateModification = request.getParameter("btnValidateModification");
     List<String> errors = new ArrayList<>();
     UsersManager usersManager = new UsersManager();
     String redirectServlet = "/WEB-INF/modifyUser.jsp";
-    boolean success = false;
     HttpSession session = request.getSession();
     if (session != null && session.getAttribute("idUserConnected") != null) {
       int idUserConnected = (int) session.getAttribute("idUserConnected");
@@ -90,32 +92,45 @@ public class ModifyUser extends HttpServlet {
         errors = userToModify.checkInformations();
         if (!request.getParameter("passwordUser").trim()
             .equals(request.getParameter("confirmPasswordUser").trim())) {
-          errors.add("Les mots de passe rentr�s ne correspondent pas.");
+          errors.add("Les mots de passe rentrées ne correspondent pas.");
 
         }
 
         if (errors.size() == 0) {
           try {
-            usersManager.updateUser(userToModify);
-            request.setAttribute("success", "Vos informations ont bien �t� mises � jour");
-            success = true;
-            redirectServlet = "./user-profil";
+
+            errors = new ArrayList<>();
+            errors = usersManager.updateUser(userToModify);
+
+            if (errors.size() == 0) {
+
+              User userModified = usersManager.getUserById(userToModify.getNo_user());
+
+              String sessionUserName = (String) session.getAttribute("nameUserConnected");
+              String sessionUserFirstName = (String) session.getAttribute("firstNameUserConnected");
+
+              if (!userModified.getName().equals(sessionUserName)
+                  || !userModified.getFirst_name().equals(sessionUserFirstName)) {
+
+                session.setAttribute("nameUserConnected", userModified.getName());
+                session.setAttribute("firstNameUserConnected", userModified.getFirst_name());
+              }
+              request.setAttribute("success", "Vos informations ont bien été mises à jour");
+              redirectServlet = "./user-profil";
+            } else {
+              request.setAttribute("errors", errors);
+              request.setAttribute("user", userToModify);
+            }
           } catch (BLLException e) {
             errors.add("[erreur] Echec lors de l'enregistrement de vos informations.");
           }
-        }
-
-        if (!success) {
-          request.setAttribute("errors", errors);
-          request.setAttribute("user", userToModify);
         }
       } else {
         redirectServlet = "./Home";
       }
 
-
     } else {
-      errors.add("Vous devez vous connecter pour acc�der � votre profil");
+      errors.add("Vous devez vous connecter pour accéder à votre profil");
       redirectServlet = "/WEB-INF/Home.jsp";
     }
 
@@ -125,5 +140,4 @@ public class ModifyUser extends HttpServlet {
       rd.forward(request, response);
     }
   }
-
 }

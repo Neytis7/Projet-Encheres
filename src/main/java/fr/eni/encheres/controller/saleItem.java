@@ -109,8 +109,7 @@ public class saleItem extends HttpServlet {
         userConnected = usersManager.getUserById(idUserConnected);
       } catch (BLLException exception) {
 
-        errors.add(
-            "Une erreur est survenue lors de la recupération de vos informations personnelles !");
+        errors.add("Une erreur est survenue lors de la recupération de vos informations personnelles !");
         redirection("WEB-INF/sign-in.jsp", errors, null, request, response, true);
         return;
       }
@@ -128,6 +127,7 @@ public class saleItem extends HttpServlet {
 
         article = new Article(nameItem, descriptionItem, startDateItem, endDateItem, priceItem, 0,
             userConnected, null, false);
+        
         errors = article.checkValueArticle(false);
 
         try {
@@ -138,6 +138,8 @@ public class saleItem extends HttpServlet {
 
         if (errors.size() > 0) {
           request.setAttribute("errors", errors);
+          request.setAttribute("article", article);
+          request.setAttribute("idCategory", categoyItem);
           doGet(request, response);
           return;
         }
@@ -147,7 +149,7 @@ public class saleItem extends HttpServlet {
           category = categoryManager.getCategoryById(categoyItem);
 
           if (category != null) {
-            article.setCategory(category);
+            article.setCategory(category);            
             idArticle = articleManager.createArticle(article);
 
             try {
@@ -156,6 +158,7 @@ public class saleItem extends HttpServlet {
 
               if (errors.size() > 0) {
                 request.setAttribute("errors", errors);
+                request.setAttribute("article", article);
                 doGet(request, response);
                 return;
               } else {
