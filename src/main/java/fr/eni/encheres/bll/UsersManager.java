@@ -2,6 +2,7 @@ package fr.eni.encheres.bll;
 
 import java.util.ArrayList;
 import fr.eni.encheres.bo.User;
+import fr.eni.encheres.bo.Utils;
 import fr.eni.encheres.dal.DALException;
 import fr.eni.encheres.dal.UserDaoImpl;
 
@@ -22,7 +23,7 @@ public class UsersManager {
     try {
       return usersDAO.selectUserById(idUser);
     } catch (DALException dalException) {
-      throw new BLLException(new Exception("La r�cup�ration de l'utilisateur � �chou�e."));
+      throw new BLLException(new Exception("La récupération de l'utilisateur à échouée."));
     }
   }
 
@@ -38,23 +39,11 @@ public class UsersManager {
   public ArrayList<String> signUpUser(User user) throws BLLException {
 
     isNotNull(user);
-    ArrayList<User> allUsers = new ArrayList<>();
     ArrayList<String> errors = new ArrayList<>();
 
     try {
-      allUsers = usersDAO.selectAllUsersPseudoAndMail();
-
-      for (User aUser : allUsers) {
-        if (aUser.getPseudo().trim().equals(user.getPseudo())) {
-          errors.add("Ce pseudo est déjà utilisé par une autre personne");
-          break;
-        }
-
-        if (aUser.getMail().trim().equals(user.getMail())) {
-          errors.add("Cet email est déjà utilisé par une autre personne");
-          break;
-        }
-      }
+   
+      errors = Utils.uniqueLogin(usersDAO, user);
 
       if (errors.size() == 0) {
         usersDAO.insert(user);
@@ -90,15 +79,28 @@ public class UsersManager {
     return array;
   }
 
-  public boolean updateUser(User user) throws BLLException {
-    boolean success = false;
-    isNotNull(user);
+  public ArrayList<String> updateUser(User user) throws BLLException {
+	  
+	  ArrayList<String> errors = new ArrayList<>();
+	  boolean success = false;
+	  isNotNull(user);
+    
+    
     try {
-      success = usersDAO.updateUserByID(user);
+    	errors = Utils.uniqueLogin(usersDAO, user);
+    	
+    	if (errors.size() == 0) {
+    		success = usersDAO.updateUserByID(user);
+    		
+    		if(!success) {
+    			 throw new DALException(new Exception("Une erreur est survenue"));
+    		}
+    	}
+    	
     } catch (DALException e) {
       throw new BLLException(new Exception("La mise à jour des données de l'utilsateur a échoué"));
     }
-    return success;
+    return errors;
   }
   
   public boolean deleteAccount(User user) throws BLLException {
@@ -121,9 +123,9 @@ public class UsersManager {
     }
   }
 
-  private void isNotNull(int idUser) throws fr.eni.encheres.bll.BLLException {
+  private void isNotNull(int idUser) throws BLLException {
     if (idUser == 0) {
-      throw new BLLException(new Exception("L'id user pass� en param�tre est �gal � 0."));
+      throw new BLLException(new Exception("L'id user passé en paramètre est égal à 0."));
     }
   }
 }

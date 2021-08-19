@@ -114,15 +114,15 @@ public class UserDaoImpl {
 		return user;	
 	}
 
-	public ArrayList<User> selectAllUsersPseudoAndMail() throws DALException {
+	public ArrayList<User> selectAllUsersPseudoAndMail(int idUser) throws DALException {
 
 		ResultSet result;
 		ArrayList<User> allUsers = new ArrayList<>();
 		
 		try (Connection connection = ConnexionProvider.getConnection()){
 			
-			PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS);	
-			ps.setInt(1, User.ACTIVE_ACCOUNT);
+			PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS + " where no_utilisateur != (?)");	
+			ps.setInt(1, idUser);
 			result = ps.executeQuery();
 			
 			while(result.next()) {
@@ -130,7 +130,6 @@ public class UserDaoImpl {
 				allUsers.add(new User(result.getString("pseudo"),result.getString("email")));
 			}
 		}catch(SQLException exception) {
-			
 			throw new DALException(new Exception("[erreur] Récupération impossible de la liste des utilisateurs"));
 		}
 		
@@ -222,7 +221,7 @@ public class UserDaoImpl {
 			int result = preparedStatement.executeUpdate();
 			
 			if (result > 0) {
-				success = false;
+				success = true;
 			} else {
 				throw new DALException(new Exception("An error occured while update user with id " + userToUpdate.getNo_user()));
 			}

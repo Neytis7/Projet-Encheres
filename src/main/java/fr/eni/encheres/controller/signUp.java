@@ -84,6 +84,7 @@ public class signUp extends HttpServlet {
         }
       } else {
         request.setAttribute("errors", errors);
+        request.setAttribute("infoUser", user);
       }
     }
 
