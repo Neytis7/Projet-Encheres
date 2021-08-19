@@ -28,11 +28,13 @@ public class ArticleDaoImpl implements ArticleDAO {
 
 	private static final String CHECK_MAX_MONTANT =
 			"USE DB_ENCHERES SELECT Max(montant_enchere) AS me FROM ARTICLES_VENDUS INNER JOIN ENCHERES ON ARTICLES_VENDUS.no_article = ENCHERES.no_article where ENCHERES.no_article = ";
+	
 	private static final String SELECT_ARTICLE_BY_ID = "USE DB_ENCHERES SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, est_termine "
 			+ " FROM ARTICLES_VENDUS " + " WHERE no_article = (?) ";
 
 	private static final String CHECK_USER_MAX_AUCTION =
 			"USE DB_ENCHERES SELECT Encheres.no_article,MAX(montant_enchere) AS maxEnchere FROM ARTICLES_VENDUS INNER JOIN ENCHERES ON ARTICLES_VENDUS.no_article = ENCHERES.no_article WHERE ";
+	
 	private static final String UPDATE_FINISHED_ARTICLE = "USE DB_ENCHERES UPDATE ARTICLES_VENDUS "
 			+ "SET est_termine = 1, prix_vente = (?) WHERE no_article = (?)";
 	// TODO: update la requete
@@ -121,44 +123,6 @@ public class ArticleDaoImpl implements ArticleDAO {
 		return getArticle(finalArticle);
 	}
 
-	@Override
-	public List<Article> FilterNameCategory(String search, String category) throws Exception {
-		Connection cnx = ConnexionProvider.getConnection();
-		Statement sts = cnx.createStatement();
-		String finalArticle = "'" + search + "%' ";
-		String finalCategorie = "'" + category + "'";
-		String sqlFinal = finalArticle + "AND libelle = " + finalCategorie;
-		ResultSet res = sts.executeQuery(FILTER_NAME_ALL_OR_NAME_CATEGORY + sqlFinal);
-		List<Article> listArticles = new ArrayList<Article>();
-		while (res.next()) {
-			// Article
-			int no_article = res.getInt("no_article");
-			String name_article = res.getString("nom_article");
-			String description = res.getString("description");
-			LocalDate start_date = res.getDate("date_debut_encheres").toLocalDate();
-			LocalDate end_date = res.getDate("date_fin_encheres").toLocalDate();
-			int initial_price = res.getInt("prix_initial");
-			int sell_price = res.getInt("prix_vente");
-			boolean isDelete = res.getBoolean("est_supprime");
-			// Category
-			int no_category = res.getInt("no_categorie");
-			String libelle = res.getString("libelle");
-			Category categoryBis = new Category(no_category, libelle);
-			// User
-			int no_user = res.getInt("no_utilisateur");
-			String pseudo = res.getString("pseudo");
-			String name = res.getString("nom");
-			String first_name = res.getString("prenom");
-			String mail = res.getString("email");
-			String phone_number = res.getString("telephone");
-			String address = res.getString("rue");
-			String zip_code = res.getString("code_postal");
-			String city = res.getString("ville");
-			String password = res.getString("mot_de_passe");
-			int credit = res.getInt("credit");
-			boolean isAdministrator = res.getBoolean("administrateur");
-			User user = new User(no_user, pseudo, name, first_name, mail, phone_number, address, zip_code, city,
-					password, credit, isAdministrator);
 
 	@Override
 	public List<Article> FilterNameCategory(String search, String category) throws Exception {
@@ -273,8 +237,7 @@ public class ArticleDaoImpl implements ArticleDAO {
 		}
 		return getArticle(listIdArticle);
 	}
-	@Override
-	public Article getArticleById(int idArticle) throws DALException {
+	
 
 	@Override
 	public List<Article> FilterConnectedSearchCategoryMySellInProgress(String search, String category,
@@ -691,6 +654,9 @@ public class ArticleDaoImpl implements ArticleDAO {
 		}
 		return listArticles;
 	}
+	
+	@Override
+	public Article getArticleById(int idArticle) throws DALException {
 		Article article = null;
 		try {
 			Connection connexion = ConnexionProvider.getConnection();
