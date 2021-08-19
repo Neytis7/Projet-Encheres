@@ -78,12 +78,13 @@ public class ModifyUser extends HttpServlet {
     List<String> errors = new ArrayList<>();
     UsersManager usersManager = new UsersManager();
     String redirectServlet = "/WEB-INF/modifyUser.jsp";
+    User userToModify = null;
     HttpSession session = request.getSession();
     if (session != null && session.getAttribute("idUserConnected") != null) {
       int idUserConnected = (int) session.getAttribute("idUserConnected");
 
       if (btnValidateModification != null) {
-        User userToModify = new User(idUserConnected, request.getParameter("pseudoUser"),
+        userToModify = new User(idUserConnected, request.getParameter("pseudoUser"),
             request.getParameter("nameUser"), request.getParameter("firstNameUser"),
             request.getParameter("mailUser"), request.getParameter("phoneNumberUser"),
             request.getParameter("addressUser"), request.getParameter("zipCodeUser"),
@@ -133,7 +134,8 @@ public class ModifyUser extends HttpServlet {
       errors.add("You must be connected to see you profile");
       redirectServlet = "./Home";
     }
-
+    request.setAttribute("errors", errors);
+    request.setAttribute("user", userToModify);
     RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);
 
     if (rd != null) {

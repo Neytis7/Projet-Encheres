@@ -49,7 +49,7 @@
 			  			<dd class="col-sm-9">${user.city}</dd>	
 					</dl>
 				</div>
-				<a href="./modify-user" class="btn btn-success btn-lg" style="margin: 0 45% 0 45%;">Modify profile</a>
+				<a href="./modify-user" class="btn btn-success btn-lg" style="margin: 0% 40% 0 40%;">Modify profile</a>
 				<button type="button" class="btn btn-danger btn-lg"  style="margin: 1% 1% 0 40%;padding:1%" data-toggle="modal" data-target="#deleteAccount">
 					Delete my account</button>
 					
