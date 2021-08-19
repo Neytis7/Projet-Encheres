@@ -33,22 +33,75 @@
 					</button>
 				</div>
 			</c:if>
-			<h2>Auction list</h2>
+			<c:choose>
+				<c:when test="${not empty idUserConnected }">
+				<h2>Auction list</h2>
+			Filter :
+				<form action="${pageContext.request.contextPath }/Filter"
+						method="post">
+						<div class="form-inline mr-auto">
+						<input class="form-control mr-sm-2" name="search" type="text"
+							placeholder="Search" aria-label="Search"><select
+							name="category" class="browser-default custom-select">
+							<!-- TODO: recuperer en base les categories -->
+							<option selected>Toutes</option>
+							<c:forEach var="category" items="${listCategories}">
+								<option value="${category.libelle}">${category.libelle}</option>
+							</c:forEach>
+						</select>
+						</div>
+						<br>
+						<fieldset>
+							<span> <label for="btnRadioAchat">Achat</label> <input
+								type="radio" class="change" name="btnRadioGroup"
+								id="btnRadioGroupAchat" value="achat" checked>
+
+							</span> <span style="margin: 20%;"> <label for="btnRadioVente">Vente</label>
+								<input type="radio" class="change" name="btnRadioGroup"
+								value="vente" id="btnRadioGroupVente">
+							</span>
+						</fieldset>
+						<fieldset>
+							<div class="row">
+								<div class="col-3">
+									<input type="checkbox" name="checkbox_achat"
+										value="enchereEnOuvertes"> Enchères ouvertes<br>
+									<input type="checkbox" name="checkbox_achat"
+										value="enchereEnCours"> Mes enchères en cours<br> <input
+										type="checkbox" name="checkbox_achat"
+										value="enchereRemportees"> Mes enchères remportées<br>
+								</div>
+								<div class="col-3">
+									<input type="checkbox" name="checkbox_vente"
+										value="venteEnCours"> Mes ventes en cours<br> <input
+										type="checkbox" name="checkbox_vente"
+										value="ventesNonDebutees"> Mes ventes non débutées<br>
+									<input type="checkbox" name="checkbox_vente"
+										value="ventesTerminees"> Mes ventes terminées<br>
+								</div>
+							</div>
+						</fieldset>
+						<button type="submit" class="btn btn-dark" style="margin: 1%;">Search</button>
+					</form>
+				</c:when>
+				<c:otherwise>
+					<h2>Auction list</h2>
 			Filter :
 			<form action="${pageContext.request.contextPath }/Filter"
-				method="post" class="form-inline mr-auto">
-				<input class="form-control mr-sm-2" name="search" type="text"
-					placeholder="Search" aria-label="Search">
-					 <select name="category" class="browser-default custom-select">
-					<!-- TODO: recuperer en base les categories -->
-					<option selected>Toutes</option>
-					<c:forEach var="category" items="${listCategories}">
-	  					<option value="${category.libelle}">${category.libelle}</option>
-	  				</c:forEach>
-				</select>
-				<button type="submit" class="btn btn-dark">Search</button>
-			</form>
-			<br>
+						method="post" class="form-inline mr-auto">
+						<input class="form-control mr-sm-2" name="search" type="text"
+							placeholder="Search" aria-label="Search"> <select
+							name="category" class="browser-default custom-select">
+							<!-- TODO: recuperer en base les categories -->
+							<option selected>Toutes</option>
+							<c:forEach var="category" items="${listCategories}">
+								<option value="${category.libelle}">${category.libelle}</option>
+							</c:forEach>
+						</select>
+						<button type="submit" class="btn btn-dark" style="margin: 1%;">Search</button>
+					</form>
+				</c:otherwise>
+			</c:choose>
 			<c:choose>
 				<c:when test="${not empty filterList }">
 					<c:forEach var="article" items="${filterList}">
@@ -104,5 +157,31 @@
 			</c:choose>
 		</div>
 	</main>
+	<script>
+		btnRadioAchat = $("#btnRadioGroupAchat");
+		btnRadioVente = $("#btnRadioGroupVente");
+		checkboxAchat = $("input[name='checkbox_achat']");
+		checkboxVente = $("input[name='checkbox_vente']");
+
+		if (btnRadioAchat.is(":checked")) {
+			checkboxVente.attr("disabled", true);
+			checkboxAchat.attr("disabled", false);
+		} else {
+			checkboxVente.attr("disabled", false);
+			checkboxAchat.attr("disabled", true);
+		}
+
+		$(".change").change(function() {
+
+			if (this.id == "btnRadioGroupAchat") {
+
+				checkboxVente.attr("disabled", true);
+				checkboxAchat.attr("disabled", false);
+			} else {
+				checkboxVente.attr("disabled", false);
+				checkboxAchat.attr("disabled", true);
+			}
+		});
+	</script>
 </body>
 </html>
