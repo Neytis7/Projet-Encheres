@@ -8,15 +8,15 @@ import fr.eni.encheres.dal.UserDaoImpl;
 
 public class UsersManager {
 
-  private UserDaoImpl usersDAO = new UserDaoImpl();
+	private UserDaoImpl usersDAO = new UserDaoImpl();
 
-  public UserDaoImpl getUserDAO() {
-    return usersDAO;
-  }
+	public UserDaoImpl getUserDAO() {
+		return usersDAO;
+	}
 
-  public void setUserDAO(UserDaoImpl userDAO) {
-    this.usersDAO = userDAO;
-  }
+	public void setUserDAO(UserDaoImpl userDAO) {
+		this.usersDAO = userDAO;
+	}
 
   public User getUserById(int idUser) throws BLLException {
     isNotNull(idUser);
@@ -36,7 +36,7 @@ public class UsersManager {
     }
   }
 
-  public ArrayList<String> signUpUser(User user) throws BLLException {
+	public ArrayList<String> signUpUser(User user) throws BLLException {
 
     isNotNull(user);
     ArrayList<String> errors = new ArrayList<>();
@@ -49,17 +49,17 @@ public class UsersManager {
         usersDAO.insert(user);
       }
 
-    } catch (DALException e) {
-      throw new BLLException(new Exception("L'inscription a échoué"));
-    }
-    return errors;
-  }
+		} catch (DALException e) {
+			throw new BLLException(new Exception("L'inscription a échoué"));
+		}
+		return errors;
+	}
 
-  public ArrayList<Object> signInUser(String loginUser, String password) throws BLLException {
+	public ArrayList<Object> signInUser(String loginUser, String password) throws BLLException {
 
-    ArrayList<Object> array = new ArrayList<>();
-    User user = null;
-    boolean access = false;
+		ArrayList<Object> array = new ArrayList<>();
+		User user = null;
+		boolean access = false;
 
     try {
       user = usersDAO.getUserByLogin(loginUser, password);
@@ -76,8 +76,8 @@ public class UsersManager {
       throw new BLLException(new Exception("La connexion a échoué"));
     }
 
-    return array;
-  }
+		return array;
+	}
 
   public ArrayList<String> updateUser(User user) throws BLLException {
 
@@ -116,13 +116,17 @@ public class UsersManager {
 
     return success;
   }
+	public User getUserByLogin(String loginUser) throws BLLException {
 
-  private void isNotNull(User user) throws BLLException {
+		User user = null;
 
-    if (user == null) {
-      throw new BLLException(new Exception("L'utilisateur est vide."));
-    }
-  }
+		try {
+			user = usersDAO.getUserByLogin(loginUser);
+		} catch (DALException e) {
+			throw new BLLException(new Exception("La récupération de l'utilisateur a échoué"));
+		}
+		return user;
+	}
 
   private void isNotNull(int idUser) throws BLLException {
     if (idUser == 0) {

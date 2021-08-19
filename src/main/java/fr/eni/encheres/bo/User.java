@@ -1,5 +1,6 @@
 package fr.eni.encheres.bo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class User {
   private int credit;
   private boolean isAdministrator;
   private boolean isDelete;
+	private String tokenPassword;
+	private LocalDate tokenPasswordDate;
   private List<Article> listArticleSell = new ArrayList<Article>();
   private List<Article> listArticleBuy = new ArrayList<Article>();
   private List<Auction> listAuctionCompleted = new ArrayList<Auction>();
@@ -75,130 +78,165 @@ public class User {
       this.phone_number = "";
     }
   }
+	public User(int no_user, String pseudo, String name, String first_name, String mail,
+		super();
+			String phone_number, String address, String zip_code, String city, String password,
+			int credit, boolean isAdministrator, String tokenPassword, LocalDate tokenPasswordDate) {
+		this.no_user = no_user;
+		this.pseudo = pseudo;
+		this.first_name = first_name;
+		this.name = name;
+		this.address = address;
+		this.mail = mail;
+		this.zip_code = zip_code;
+		this.city = city;
+		this.password = password;
+		this.credit = credit;
+		this.isAdministrator = isAdministrator;
+		if (phone_number != null) {
+		} else {
+			this.phone_number = phone_number;
+			this.phone_number = "" ;
+		}
+		this.tokenPassword = tokenPassword;
+		this.tokenPasswordDate = tokenPasswordDate;
+	}
 
-  public List<Auction> getListAuctionCompleted() {
-    return listAuctionCompleted;
-  }
+	public List<Auction> getListAuctionCompleted() {
+		return listAuctionCompleted;
+	}
 
-  public void setListAuctionCompleted(List<Auction> listAuctionCompleted) {
-    this.listAuctionCompleted = listAuctionCompleted;
-  }
+	public void setListAuctionCompleted(List<Auction> listAuctionCompleted) {
+		this.listAuctionCompleted = listAuctionCompleted;
+	}
 
-  public List<Article> getListArticleSell() {
-    return listArticleSell;
-  }
+	public List<Article> getListArticleSell() {
+		return listArticleSell;
+	}
 
-  public void setListArticleSell(List<Article> listArticleSell) {
-    this.listArticleSell = listArticleSell;
-  }
+	public void setListArticleSell(List<Article> listArticleSell) {
+		this.listArticleSell = listArticleSell;
+	}
 
-  public List<Article> getListArticleBuy() {
-    return listArticleBuy;
-  }
+	public List<Article> getListArticleBuy() {
+		return listArticleBuy;
+	}
 
-  public void setListArticleBuy(List<Article> listArticleBuy) {
-    this.listArticleBuy = listArticleBuy;
-  }
+	public void setListArticleBuy(List<Article> listArticleBuy) {
+		this.listArticleBuy = listArticleBuy;
+	}
 
-  public int getNo_user() {
-    return no_user;
-  }
+	public int getNo_user() {
+		return no_user;
+	}
 
-  public void setNo_user(int no_user) {
-    this.no_user = no_user;
-  }
+	public void setNo_user(int no_user) {
+		this.no_user = no_user;
+	}
 
-  public String getPseudo() {
-    return pseudo;
-  }
+	public String getPseudo() {
+		return pseudo;
+	}
 
-  public void setPseudo(String pseudo) {
-    this.pseudo = pseudo;
-  }
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public String getFirst_name() {
-    return first_name;
-  }
+	public String getFirst_name() {
+		return first_name;
+	}
 
-  public void setFirst_name(String first_name) {
-    this.first_name = first_name;
-  }
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
 
-  public String getMail() {
-    return mail;
-  }
+	public String getMail() {
+		return mail;
+	}
 
-  public void setMail(String mail) {
-    this.mail = mail;
-  }
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 
-  public String getPhone_number() {
-    return phone_number;
-  }
+	public String getPhone_number() {
+		return phone_number;
+	}
 
-  public void setPhone_number(String phone_number) {
-    this.phone_number = phone_number;
-  }
+	public void setPhone_number(String phone_number) {
+		this.phone_number = phone_number;
+	}
 
-  public String getAddress() {
-    return address;
-  }
+	public String getAddress() {
+		return address;
+	}
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-  public String getZip_code() {
-    return zip_code;
-  }
+	public String getZip_code() {
+		return zip_code;
+	}
 
-  public void setZip_code(String zip_code) {
-    this.zip_code = zip_code;
-  }
+	public void setZip_code(String zip_code) {
+		this.zip_code = zip_code;
+	}
 
-  public String getCity() {
-    return city;
-  }
+	public String getCity() {
+		return city;
+	}
 
-  public void setCity(String city) {
-    this.city = city;
-  }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-  public String getPassword() {
-    return password;
-  }
+	public String getPassword() {
+		return password;
+	}
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-  public int getCredit() {
-    return credit;
-  }
+	public int getCredit() {
+		return credit;
+	}
 
-  public void setCredit(int credit) {
-    this.credit = credit;
-  }
+	public void setCredit(int credit) {
+		this.credit = credit;
+	}
 
-  public boolean isAdministrator() {
-    return isAdministrator;
-  }
+	public boolean isAdministrator() {
+		return isAdministrator;
+	}
 
-  public void setAdministrator(boolean isAdministrator) {
-    this.isAdministrator = isAdministrator;
-  }
+	public void setAdministrator(boolean isAdministrator) {
+		this.isAdministrator = isAdministrator;
+	}
 
   public boolean isDelete() {
     return isDelete;
   }
+	public String getTokenPassword() {
+		return tokenPassword;
+	}
+	public void setTokenPassword(String tokenPassword) {
+		this.tokenPassword = tokenPassword;
+	}
+	public LocalDate getTokenPasswordDate() {
+		return tokenPasswordDate;
+	}
+	public void setTokenPasswordDate(LocalDate tokenPasswordDate) {
+		this.tokenPasswordDate = tokenPasswordDate;
+	}
 
   public void setDelete(boolean isDelete) {
     this.isDelete = isDelete;

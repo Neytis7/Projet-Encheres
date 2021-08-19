@@ -25,6 +25,17 @@
 				<c:set var="login" value="${rememberMe }"></c:set>
 				<c:set var="checked" value="checked"></c:set>
 			</c:if>
+			<c:if test="${not empty success}">
+				<div class="alert alert-success alert-dismissible fade show"
+					role="alert" style="width: 35%;">
+					${success}
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</c:if>
+			
 			<form method="POST" action="./sign-in" class="col-6">
 			
 				<div class="form-group">
@@ -37,6 +48,7 @@
 				<div class="form-group">
 					<label for="passwordUser">votre mot de passe :</label>
 					<input type="password" class="form-control" id="passwordUser" name="passwordUser" required>
+					<a href="./ResetPassword">J'ai oublié mon mot de passe</a>
 				</div>
 				
 				<div class="form-group">

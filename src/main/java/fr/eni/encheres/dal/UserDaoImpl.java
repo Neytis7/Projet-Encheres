@@ -1,10 +1,12 @@
 package fr.eni.encheres.dal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dal.jdbc.ConnexionProvider;
