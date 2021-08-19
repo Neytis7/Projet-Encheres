@@ -48,8 +48,8 @@ public class saleItem extends HttpServlet {
     HttpSession session = request.getSession();
     ArrayList<String> errors = new ArrayList<>();
     User userConnected = null;
-    UsersManager usersManager = new UsersManager();
-    CategoryManager categoryManager = new CategoryManager();
+    UsersManager usersManager = UsersManager.getInstance();
+    CategoryManager categoryManager = CategoryManager.getInstance();
     ArrayList<Category> allCategories = new ArrayList<>();
     LocalDate date = LocalDate.now();
 
@@ -85,10 +85,10 @@ public class saleItem extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    UsersManager usersManager = new UsersManager();
-    ArticleManager articleManager = new ArticleManager();
-    CategoryManager categoryManager = new CategoryManager();
-    RetraitManager retraitManager = new RetraitManager();
+    UsersManager usersManager = UsersManager.getInstance();
+    ArticleManager articleManager = ArticleManager.getInstance();
+    CategoryManager categoryManager = CategoryManager.getInstance();
+    RetraitManager retraitManager = RetraitManager.getInstance();
 
     User userConnected = null;
     Category category = null;

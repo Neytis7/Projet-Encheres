@@ -2,15 +2,27 @@ package fr.eni.encheres.bll;
 
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.DALException;
+import fr.eni.encheres.dal.RetraitDAO;
 import fr.eni.encheres.dal.RetraitDaoImpl;
 
 public class RetraitManager {
-
-	private RetraitDaoImpl retraitDAO = new RetraitDaoImpl();
 	
-	public RetraitDaoImpl getCategoryDAO() {
-		return retraitDAO;
+	
+	private static RetraitManager instance = null;
+
+	public RetraitManager() {
+		retraitDAO = new RetraitDaoImpl();
 	}
+
+	public synchronized static RetraitManager getInstance() {
+		if (instance == null) {
+			instance = new RetraitManager();
+		}
+		return instance;
+	}
+	
+	// Ref Dal
+	private RetraitDAO retraitDAO;
 	
 	public int creerRetrait(Retrait retrait) throws BLLException {
 		

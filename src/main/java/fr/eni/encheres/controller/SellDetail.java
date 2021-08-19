@@ -48,8 +48,8 @@ public class SellDetail extends HttpServlet {
 			ArticleManager articleManager = ArticleManager.getInstance();
 			CategoryManager categoryManager = CategoryManager.getInstance();
 			AuctionManager auctionManager = AuctionManager.getInstance();
-			RetraitManager retraitManager = new RetraitManager();
-			UsersManager usersManager = new UsersManager();
+			RetraitManager retraitManager = RetraitManager.getInstance();
+			UsersManager usersManager = UsersManager.getInstance();
 			HttpSession session = request.getSession();
 			ArrayList<String> errors = new ArrayList<>();
 			int connectedUser = 0;
@@ -127,7 +127,7 @@ public class SellDetail extends HttpServlet {
 		
 		AuctionManager auctionManager = AuctionManager.getInstance();
 		ArticleManager articleManager = ArticleManager.getInstance();
-		UsersManager usersManager = new UsersManager();
+		UsersManager usersManager = UsersManager.getInstance();
 
 		try {
 			Article articleToTest = articleManager.getArticleById(idArticle);

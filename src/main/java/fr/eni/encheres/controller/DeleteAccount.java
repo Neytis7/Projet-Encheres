@@ -35,7 +35,7 @@ public class DeleteAccount extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		UsersManager usersManager = new UsersManager();
+		UsersManager usersManager = UsersManager.getInstance();
 	    User userConnected = null;
 	    ArrayList<String> errorMessage = new ArrayList<>();
 	    String redirectServlet = "./user-profil";

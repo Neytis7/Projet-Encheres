@@ -35,7 +35,7 @@ public class ModifyUser extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    UsersManager usersManager = new UsersManager();
+    UsersManager usersManager = UsersManager.getInstance();
     User userToDisplay = null;
     ArrayList<String> errorMessage = new ArrayList<>();
     String redirectServlet = "/WEB-INF/modifyUser.jsp";

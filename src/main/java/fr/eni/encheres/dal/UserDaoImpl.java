@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dal.jdbc.ConnexionProvider;
 
-public class UserDaoImpl {
+public class UserDaoImpl implements UserDAO{
 
   private static final String INSERT_USER = "USE DB_ENCHERES INSERT INTO UTILISATEURS "
       + "(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
@@ -34,7 +34,8 @@ public class UserDaoImpl {
 
   private static final String DELETE_USER_BY_ID =
       "USE DB_ENCHERES UPDATE UTILISATEURS SET estSupprimee = (?) WHERE no_utilisateur = (?)";
-
+  
+  @Override
   public boolean insert(User user) throws DALException {
 
     int result = 0;
@@ -75,6 +76,7 @@ public class UserDaoImpl {
     return success;
   }
 
+  @Override
   public User getUserByLogin(String loginUser, String password) throws DALException {
 
     ResultSet result;
@@ -102,7 +104,8 @@ public class UserDaoImpl {
     }
     return user;
   }
-
+  
+  @Override
   public ArrayList<User> selectAllUsersPseudoAndMail(int idUser) throws DALException {
 
     ResultSet result;
@@ -127,7 +130,8 @@ public class UserDaoImpl {
 
     return allUsers;
   }
-
+  
+  @Override
   public User selectUserById(int idUser) throws DALException {
     User user = null;
     try (Connection connexion = ConnexionProvider.getConnection()) {
@@ -152,7 +156,7 @@ public class UserDaoImpl {
     }
     return user;
   }
-
+  @Override
   public User selectUserByIdArticle(int idArticle) throws DALException {
     User user = null;
     try {
@@ -179,7 +183,7 @@ public class UserDaoImpl {
     return user;
   }
 
-
+  @Override
   public boolean updateUserByID(User userToUpdate) throws DALException {
     boolean success = false;
     try (Connection connexion = ConnexionProvider.getConnection()) {
@@ -212,7 +216,8 @@ public class UserDaoImpl {
     }
     return success;
   }
-
+  
+  @Override
   public boolean delete(User user) throws DALException {
 
     boolean success = false;

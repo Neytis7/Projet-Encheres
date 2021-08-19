@@ -4,15 +4,30 @@ import java.util.ArrayList;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.bo.Utils;
 import fr.eni.encheres.dal.DALException;
+import fr.eni.encheres.dal.UserDAO;
 import fr.eni.encheres.dal.UserDaoImpl;
 
 public class UsersManager {
+	
+	
+	private static UsersManager instance = null;
 
-  private UserDaoImpl usersDAO = new UserDaoImpl();
+	public UsersManager() {
+		usersDAO = new UserDaoImpl();
+	}
 
-  public UserDaoImpl getUserDAO() {
-    return usersDAO;
-  }
+	public synchronized static UsersManager getInstance() {
+		if (instance == null) {
+			instance = new UsersManager();
+		}
+		return instance;
+	}
+
+	// Ref Dal
+	private UserDAO usersDAO;
+	
+
+  
 
   public void setUserDAO(UserDaoImpl userDAO) {
     this.usersDAO = userDAO;

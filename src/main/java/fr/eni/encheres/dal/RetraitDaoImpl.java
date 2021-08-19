@@ -9,13 +9,14 @@ import fr.eni.encheres.bo.Category;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.jdbc.ConnexionProvider;
 
-public class RetraitDaoImpl {
+public class RetraitDaoImpl implements RetraitDAO{
 	
 	private static final String INSERT_RETRAIT = "USE DB_ENCHERES INSERT INTO RETRAITS "
 			+ "(no_article, rue, code_postal, ville ) VALUES (?,?,?,?)";
 	
 	private static final String GET_RETRAIT_BY_ID_ARTICLE = "USE DB_ENCHERES SELECT * FROM RETRAITS WHERE no_article = (?)";
 	
+	@Override
 	public int insert(Retrait retrait) throws DALException {
 		
 		int result = 0;
@@ -36,6 +37,7 @@ public class RetraitDaoImpl {
 		return result;	
 	}
 	
+	@Override
 	public Retrait getRetraitByIdArticle(int idArticle) throws DALException {
 		Retrait retrait = null;
 		ResultSet resultSet;

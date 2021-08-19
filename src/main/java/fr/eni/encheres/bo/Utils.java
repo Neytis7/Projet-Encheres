@@ -2,7 +2,7 @@ package fr.eni.encheres.bo;
 
 import java.util.ArrayList;
 import fr.eni.encheres.dal.DALException;
-import fr.eni.encheres.dal.UserDaoImpl;
+import fr.eni.encheres.dal.UserDAO;
 
 public class Utils {
 
@@ -10,7 +10,7 @@ public class Utils {
     return string == null || string.trim().isEmpty();
   }
 
-  final public static ArrayList<String> uniqueLogin(UserDaoImpl userDAO, User user)
+  final public static ArrayList<String> uniqueLogin(UserDAO userDAO, User user)
       throws DALException {
 
     ArrayList<String> errors = new ArrayList<>();

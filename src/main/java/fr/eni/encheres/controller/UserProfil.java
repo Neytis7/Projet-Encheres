@@ -42,7 +42,7 @@ public class UserProfil extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    UsersManager usersManager = new UsersManager();
+    UsersManager usersManager = UsersManager.getInstance();
     User userToDisplay = null;
     String errorMessage = "";
     String redirectServlet = "./Home";
