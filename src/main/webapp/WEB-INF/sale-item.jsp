@@ -70,7 +70,7 @@
 				
 				<div class="form-group">
 					<label for="endDateItem">End of Auction:</label>
-					<input type="date" class="form-control" id="endDateItem" name="endDateItem" value="${ endDateArticle }" required>
+					<input type="date" class="form-control" id="endDateItem" name="endDateItem" min="${date}"  value="${ endDateArticle }" required>
 				</div>
 				
 				
