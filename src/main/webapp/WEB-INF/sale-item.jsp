@@ -65,7 +65,7 @@
 		
 				<div class="form-group">
 					<label for="startDateItem">Start of Auction</label>
-					<input type="date" class="form-control" id="startDateItem" name="startDateItem" value="${ startDateArticle }" required>
+					<input type="date" class="form-control" id="startDateItem" name="startDateItem" min="${date}" value="${date}" required>
 				</div>
 				
 				<div class="form-group">

@@ -51,6 +51,7 @@ public class saleItem extends HttpServlet {
     UsersManager usersManager = new UsersManager();
     CategoryManager categoryManager = new CategoryManager();
     ArrayList<Category> allCategories = new ArrayList<>();
+    LocalDate date = LocalDate.now();
 
     if (session != null && session.getAttribute("idUserConnected") != null) {
 
@@ -73,7 +74,7 @@ public class saleItem extends HttpServlet {
     } else {
       errors.add("You must be connected to see this page");
     }
-
+    request.setAttribute("date", date);
     redirection(redirectServlet, errors, null, request, response, false);
   }
 
@@ -127,7 +128,7 @@ public class saleItem extends HttpServlet {
 
         article = new Article(nameItem, descriptionItem, startDateItem, endDateItem, priceItem, 0,
             userConnected, null, false);
-        
+
         errors = article.checkValueArticle(false);
 
         try {
@@ -149,7 +150,7 @@ public class saleItem extends HttpServlet {
           category = categoryManager.getCategoryById(categoyItem);
 
           if (category != null) {
-            article.setCategory(category);            
+            article.setCategory(category);
             idArticle = articleManager.createArticle(article);
 
             try {
