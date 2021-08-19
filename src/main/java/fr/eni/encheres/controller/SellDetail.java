@@ -44,59 +44,65 @@ public class SellDetail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int idArticle = getIDArticleParameter(request, response);
-		ArticleManager articleManager = ArticleManager.getInstance();
-		CategoryManager categoryManager = CategoryManager.getInstance();
-		AuctionManager auctionManager = AuctionManager.getInstance();
-		RetraitManager retraitManager = new RetraitManager();
-		UsersManager usersManager = new UsersManager();
-		HttpSession session = request.getSession();
-		ArrayList<String> errors = new ArrayList<>();
-		int connectedUser = 0;
-		if (session != null && session.getAttribute("idUserConnected") != null) {
-			connectedUser = (int) session.getAttribute("idUserConnected");
-		} else {
-			errors.add("You must be connected to see sell details");
-			request.setAttribute("errors", errors);
-			redirect(request, response, "./sign-in");
-		}
+		if(idArticle != 0) {
+			ArticleManager articleManager = ArticleManager.getInstance();
+			CategoryManager categoryManager = CategoryManager.getInstance();
+			AuctionManager auctionManager = AuctionManager.getInstance();
+			RetraitManager retraitManager = new RetraitManager();
+			UsersManager usersManager = new UsersManager();
+			HttpSession session = request.getSession();
+			ArrayList<String> errors = new ArrayList<>();
+			int connectedUser = 0;
 
-		try {
-			Article articleToDisplay = articleManager.getArticleById(idArticle);
-			if (articleToDisplay == null) {
-				throw new BLLException(new Exception("Error in http request"));
-			}
-			articleToDisplay.setCategory(categoryManager.getCategoryByIdArticle(idArticle));
-			articleToDisplay.setListAuction(auctionManager.getListAuctionByIdArticle(idArticle));
-			articleToDisplay.setWithdrawalPoint(retraitManager.getRetraitByIdArticle(idArticle));
-			articleToDisplay.setUserSeller(usersManager.getUserByIdArticle(idArticle));
-
-			request.setAttribute("article", articleToDisplay);
-			request.setAttribute("bid",
-					(session != null && connectedUser != articleToDisplay.getUserSeller().getNo_user()
-							&& LocalDate.now().isBefore(articleToDisplay.getEnd_date())));
-			// FINISH SELL
-
-			if (LocalDate.now().isAfter(articleToDisplay.getEnd_date())
-					|| LocalDate.now().isEqual(articleToDisplay.getEnd_date())) {
-				request.setAttribute("finished", true);
-				if (!articleToDisplay.isFinished()) {
-					articleManager.finishSellArticle(idArticle, articleToDisplay.getBestBid());
-					User userToDebit = articleToDisplay.getUserWithBestBid();
-					userToDebit.setCredit(userToDebit.getCredit() - articleToDisplay.getBestBid());
-					usersManager.updateUser(userToDebit);
-				}
+			if (session != null && session.getAttribute("idUserConnected") != null) {
+				connectedUser = (int) session.getAttribute("idUserConnected");
 			} else {
-				request.setAttribute("finished", false);
+				errors.add("You must be connected to see sell details");
+				request.setAttribute("errors", errors);
+				redirect(request, response, "./sign-in");
+				return;
 			}
 
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			errors.add("Error in http request");
-			request.setAttribute("errors", errors);
-			redirect(request, response, "./Home");
-		}
+			try {
+				Article articleToDisplay = articleManager.getArticleById(idArticle);
+				if (articleToDisplay == null) {
+					throw new BLLException(new Exception("Error in http request"));
+				}
+				articleToDisplay.setCategory(categoryManager.getCategoryByIdArticle(idArticle));
+				articleToDisplay.setListAuction(auctionManager.getListAuctionByIdArticle(idArticle));
+				articleToDisplay.setWithdrawalPoint(retraitManager.getRetraitByIdArticle(idArticle));
+				articleToDisplay.setUserSeller(usersManager.getUserByIdArticle(idArticle));
 
-		redirect(request, response, "WEB-INF/sellDetail.jsp");
+				request.setAttribute("article", articleToDisplay);
+				request.setAttribute("bid",
+						(session != null && connectedUser != articleToDisplay.getUserSeller().getNo_user()
+						&& LocalDate.now().isBefore(articleToDisplay.getEnd_date())));
+				// FINISH SELL
+
+				if (LocalDate.now().isAfter(articleToDisplay.getEnd_date())
+						|| LocalDate.now().isEqual(articleToDisplay.getEnd_date())) {
+					request.setAttribute("finished", true);
+					if (!articleToDisplay.isFinished()) {
+						articleManager.finishSellArticle(idArticle, articleToDisplay.getBestBid());
+						User userToDebit = articleToDisplay.getUserWithBestBid();
+						userToDebit.setCredit(userToDebit.getCredit() - articleToDisplay.getBestBid());
+						usersManager.updateUser(userToDebit);
+					}
+				} else {
+					request.setAttribute("finished", false);
+				}
+
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				errors.add("Error in http request");
+				request.setAttribute("errors", errors);
+				redirect(request, response, "./Home");
+				return;
+			}
+
+			redirect(request, response, "WEB-INF/sellDetail.jsp");
+			return;
+		}
 	}
 
 	/**
@@ -106,7 +112,19 @@ public class SellDetail extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int idArticle = getIDArticleParameter(request, response);
-		int connectedUser = (int) request.getSession().getAttribute("idUserConnected");
+		int connectedUser = 0;
+		HttpSession session = request.getSession();
+		ArrayList<String> errors = new ArrayList<>();
+		
+		if (session != null && session.getAttribute("idUserConnected") != null) {
+			connectedUser = (int) request.getSession().getAttribute("idUserConnected");
+		} else {
+			errors.add("You must be connected to bid on sell");
+			request.setAttribute("errors", errors);
+			redirect(request, response, "./sign-in");
+			return;
+		} 
+		
 		AuctionManager auctionManager = AuctionManager.getInstance();
 		ArticleManager articleManager = ArticleManager.getInstance();
 		UsersManager usersManager = new UsersManager();
@@ -124,15 +142,18 @@ public class SellDetail extends HttpServlet {
 
 			if (LocalDate.now().isAfter(articleToTest.getEnd_date())) {
 				redirectToGet(request, response, "You can't bid anymore on this item");
+				return;
 			}
 
 			if (user.getCredit() < proposedBid) {
 				redirectToGet(request, response, "You don't have enough credits");
+				return;
 
 			}
 
 			if (proposedBid <= bestBid || proposedBid <= articleToTest.getInitial_price()) {
 				redirectToGet(request, response, "Your bid is too low");
+				return;
 			}
 
 			Auction auction = new Auction(LocalDate.now(), proposedBid, user);
@@ -142,9 +163,11 @@ public class SellDetail extends HttpServlet {
 		} catch (BLLException e) {
 			doGet(request, response);
 			e.printStackTrace();
+			return;
 		}
 
 		doGet(request, response);
+		return;
 	}
 
 	private void redirectToGet(HttpServletRequest request, HttpServletResponse response, String error)
@@ -153,7 +176,6 @@ public class SellDetail extends HttpServlet {
 		errors.add(error);
 		request.setAttribute("errors", errors);
 		doGet(request, response);
-		throw new BLLException(new Exception(error));
 	}
 
 	private int getIDArticleParameter(HttpServletRequest request, HttpServletResponse response)

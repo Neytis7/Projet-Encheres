@@ -190,7 +190,8 @@ public class UserDaoImpl {
 								resultSet.getString("ville"),	
 								resultSet.getString("mot_de_passe"),	
 								resultSet.getInt("credit"),	
-								resultSet.getByte("administrateur") != 0);
+								resultSet.getByte("administrateur") != 0,
+								resultSet.getByte("estSupprimee") != 0);
 			}else {
 				throw new DALException(new Exception("L'utilisateur n'existe pas"));
 			}
