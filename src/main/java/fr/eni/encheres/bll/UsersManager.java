@@ -73,16 +73,15 @@ public class UsersManager {
     boolean access = false;
 
     try {
-      user = usersDAO.getUserByLogin(loginUser);
-
+      user = usersDAO.getUserByLogin(loginUser, password);
+ 
       if (user != null) {
-        if (password.trim().equals(user.getPassword()) && (loginUser.trim().equals(user.getPseudo())
-            || loginUser.trim().equals(user.getMail()))) {
-
-          access = true;
+    	  if(user.isDelete() == Boolean.parseBoolean(String.valueOf(User.ACTIVE_ACCOUNT))){
+        	access = true;
+    	  }
+        	
           array.add(user);
           array.add(access);
-        }
       }
     } catch (DALException e) {
       throw new BLLException(new Exception("La connexion a échoué"));
@@ -97,10 +96,23 @@ public class UsersManager {
     try {
       success = usersDAO.updateUserByID(user);
     } catch (DALException e) {
-      throw new BLLException(new Exception("La mise � jour des donn�es de l'utilsateur a �chou�"));
+      throw new BLLException(new Exception("La mise à jour des données de l'utilsateur a échoué"));
     }
     return success;
   }
+  
+  public boolean deleteAccount(User user) throws BLLException {
+	  boolean success = false;
+	  isNotNull(user);
+	  
+	  try {
+	      success = usersDAO.delete(user);
+	    } catch (DALException e) {
+	      throw new BLLException(new Exception("[erreur] La suppression du compte à échoué."));
+	    }  
+	
+	  return success;
+	}
 
   private void isNotNull(User user) throws BLLException {
 

@@ -33,9 +33,11 @@ public class UserDaoImpl {
 													+ "	credit = (?)"
 													+ " WHERE no_utilisateur = (?)";
     
-	private static final String SELECT_USER_BY_LOGIN = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE pseudo = (?) or email = (?)";
+	private static final String SELECT_USER_BY_LOGIN = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE (pseudo = (?) or email = (?)) and mot_de_passe = (?)";
 	
-	private static final String SELECT_ALL_USERS = "USE DB_ENCHERES SELECT pseudo, email FROM UTILISATEURS";
+	private static final String SELECT_ALL_USERS = "USE DB_ENCHERES SELECT pseudo, email FROM UTILISATEURS where estSupprimee = (?)";
+	
+	private static final String DELETE_USER_BY_ID = "USE DB_ENCHERES UPDATE UTILISATEURS SET estSupprimee = (?) WHERE no_utilisateur = (?)";
 	
 	public boolean insert(User user) throws DALException {
 		
@@ -76,7 +78,7 @@ public class UserDaoImpl {
 		return success;	
 	}
 
-	public User getUserByLogin(String loginUser) throws DALException {
+	public User getUserByLogin(String loginUser, String password) throws DALException {
 
 		ResultSet result;
 		User user = null;
@@ -85,6 +87,7 @@ public class UserDaoImpl {
 			PreparedStatement ps = connection.prepareStatement(SELECT_USER_BY_LOGIN);	
 			ps.setString(1, loginUser);
 			ps.setString(2, loginUser);
+			ps.setString(3, password);
 			result = ps.executeQuery();
 			
 			if(result.next()) {
@@ -100,7 +103,9 @@ public class UserDaoImpl {
 						result.getString("ville"),
 						result.getString("mot_de_passe"),
 						result.getInt("credit"),
-						result.getByte("administrateur") != 0
+						result.getByte("administrateur") != 0,
+						result.getByte("estSupprimee") != 0
+						
 				);
 			}
 		}catch(SQLException exception) {
@@ -117,6 +122,7 @@ public class UserDaoImpl {
 		try (Connection connection = ConnexionProvider.getConnection()){
 			
 			PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS);	
+			ps.setInt(1, User.ACTIVE_ACCOUNT);
 			result = ps.executeQuery();
 			
 			while(result.next()) {
@@ -151,7 +157,9 @@ public class UserDaoImpl {
 								resultSet.getString("ville"),	
 								resultSet.getString("mot_de_passe"),	
 								resultSet.getInt("credit"),	
-								resultSet.getByte("administrateur") != 0);
+								resultSet.getByte("administrateur") != 0,
+								resultSet.getByte("estSupprimee") != 0
+				);
 			}else {
 				throw new DALException(new Exception("L'utilisateur n'existe pas"));
 			}
@@ -223,5 +231,26 @@ public class UserDaoImpl {
 			throw new DALException(new Exception("An error occured while update user with id " + userToUpdate.getNo_user()));
 		}
     	return success;
-    }    
+    }
+
+	public boolean delete(User user) throws DALException {
+		
+		boolean success = false;
+    	try {
+			Connection connexion = ConnexionProvider.getConnection();
+			PreparedStatement preparedStatement = connexion.prepareStatement(DELETE_USER_BY_ID);
+			preparedStatement.setInt(1, User.DELETED_ACCOUNT);
+			preparedStatement.setInt(2, user.getNo_user());
+			int result = preparedStatement.executeUpdate();
+			
+			if (result > 0) {
+				success = true;
+			}
+			
+    	}catch(SQLException exception) {
+    		exception.printStackTrace();
+			throw new DALException(new Exception("Impossible de supprimer l'user avec l'id" + user.getNo_user()));
+		}
+    	return success;
+	}    
 }

@@ -50,8 +50,6 @@ public class ModifyUser extends HttpServlet {
 
       if (userToDisplay != null) {
         request.setAttribute("user", userToDisplay);
-      } else {
-        request.setAttribute("errorMessage", errorMessage);
       }
 
     } else {
@@ -60,7 +58,8 @@ public class ModifyUser extends HttpServlet {
     }
 
     RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);
-
+    request.setAttribute("errors", errorMessage);
+    
     if (rd != null) {
       rd.forward(request, response);
     }
@@ -87,7 +86,7 @@ public class ModifyUser extends HttpServlet {
             request.getParameter("mailUser"), request.getParameter("phoneNumberUser"),
             request.getParameter("addressUser"), request.getParameter("zipCodeUser"),
             request.getParameter("cityUser"), request.getParameter("passwordUser"),
-            Integer.parseInt(request.getParameter("credit")), false);
+            Integer.parseInt(request.getParameter("credit")), false, false);
         errors = userToModify.checkInformations();
         if (!request.getParameter("passwordUser").trim()
             .equals(request.getParameter("confirmPasswordUser").trim())) {
