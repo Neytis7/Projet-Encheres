@@ -161,7 +161,7 @@ public class saleItem extends HttpServlet {
               } else {
                 retraitManager.creerRetrait(retrait);
                 String success = "L'article à été créé avec succès !";
-                redirection("WEB-INF/Home.jsp", null, success, request, response, false);
+                redirection("./Home", null, success, request, response, false);
               }
             } catch (BLLException exception) {
               errors.add("Une erreur est survenue lors de l'ajout de l'adresse de retrait !");

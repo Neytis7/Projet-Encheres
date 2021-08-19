@@ -64,19 +64,19 @@
 						<fieldset>
 							<div class="row">
 								<div class="col-3">
-									<input type="checkbox" name="checkbox_achat"
+									<input type="checkbox" class="changeCheckbox" name="checkbox_achat"
 										value="enchereEnOuvertes"> Enchères ouvertes<br>
-									<input type="checkbox" name="checkbox_achat"
+									<input type="checkbox" class="changeCheckbox" name="checkbox_achat"
 										value="enchereEnCours"> Mes enchères en cours<br> <input
-										type="checkbox" name="checkbox_achat"
+										type="checkbox" class="changeCheckbox" name="checkbox_achat"
 										value="enchereRemportees"> Mes enchères remportées<br>
 								</div>
 								<div class="col-3">
-									<input type="checkbox" name="checkbox_vente"
+									<input type="checkbox" class="changeCheckbox" name="checkbox_vente"
 										value="venteEnCours"> Mes ventes en cours<br> <input
-										type="checkbox" name="checkbox_vente"
+										type="checkbox" class="changeCheckbox" name="checkbox_vente"
 										value="ventesNonDebutees"> Mes ventes non débutées<br>
-									<input type="checkbox" name="checkbox_vente"
+									<input type="checkbox" class="changeCheckbox" name="checkbox_vente"
 										value="ventesTerminees"> Mes ventes terminées<br>
 								</div>
 							</div>
@@ -182,6 +182,27 @@
 				checkboxAchat.attr("disabled", true);
 			}
 		});
+		
+		$(".changeCheckbox").change(function() {
+			
+			name = this.name
+			object = $("input[name="+name+"]");
+			
+			if(object.is(":checked")){
+				checkboxVente.attr("disabled", true);
+				checkboxAchat.attr("disabled", true);
+				$("input[value="+this.value+"]").attr("disabled", false);			
+			}else{
+				if(btnRadioAchat.is(":checked")){
+					checkboxAchat.attr("disabled", false);
+					checkboxVente.attr("disabled", true);
+				}else{
+					checkboxAchat.attr("disabled", true);
+					checkboxVente.attr("disabled", false);
+				}
+			}		
+		});
+		
 	</script>
 </body>
 </html>

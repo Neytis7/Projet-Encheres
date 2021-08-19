@@ -116,7 +116,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -132,7 +132,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -153,7 +153,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -168,7 +168,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -204,7 +204,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -220,7 +220,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -242,7 +242,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -257,7 +257,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -293,7 +293,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -309,7 +309,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -330,7 +330,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -345,7 +345,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -381,7 +381,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -397,7 +397,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -418,7 +418,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -433,7 +433,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -470,7 +470,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -486,7 +486,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -507,7 +507,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -522,7 +522,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -557,7 +557,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -573,7 +573,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
@@ -594,7 +594,7 @@ public class Filter extends HttpServlet {
             } catch (Exception e) {
               e.printStackTrace();
             }
-            if (filterList.size() > 0) {
+            if (filterList != null && filterList.size() > 0) {
               request.setAttribute("filterList", filterList);
             } else {
               request.setAttribute("noArticle", true);
