@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,17 @@ public class signIn extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sign-in.jsp");
+		
+		Cookie[] cookies = request.getCookies();
+		
+		if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("login")) {
+                    request.setAttribute("rememberMe", cookie.getValue());
+                    break;
+                }
+            }
+        }
 
 		if (rd != null) {
 			rd.forward(request, response);
@@ -61,9 +73,10 @@ public class signIn extends HttpServlet {
 
 			String loginUser = request.getParameter("loginUser");
 			String passwordUser = request.getParameter("passwordUser");
+			String[] rememberMe = request.getParameterValues("rememberMe");
 
 			if (!loginUser.isEmpty() || !passwordUser.isEmpty()) {
-
+				
 				try {
 					array = usersManager.signInUser(loginUser, passwordUser);
 
@@ -74,13 +87,33 @@ public class signIn extends HttpServlet {
 
 						if (access) {
 
+							if(rememberMe != null && rememberMe.length > 0) {
+								for(String e : rememberMe) {
+									if("on".equals(e.trim())) {
+										Cookie cookie = new Cookie("login", loginUser);
+										cookie.setMaxAge(60 * 60 * 24 * 30);
+										response.addCookie(cookie);
+										break;
+									}
+								}
+							}else {
+								Cookie[] cookies = request.getCookies();
+								
+								if (cookies != null) {
+						            for (Cookie cookie : cookies) {
+						                if (cookie.getName().equals("login")) {						
+						                    cookie.setMaxAge(0);
+						                    response.addCookie(cookie);
+						                    break;
+						                }
+						            }
+						        }
+							}
+							
 							session.setAttribute("idUserConnected", userConnected.getNo_user());
 							session.setAttribute("nameUserConnected", userConnected.getName());
 							session.setAttribute("firstNameUserConnected", userConnected.getFirst_name());
 							redirectServlet = "./Home";
-						}else {
-							redirectServlet = "./sign-up";
-							errors.add("Ce compte est inactif, veuillez en recréé un autre.");
 						}
 					} else {
 						errors.add("Le login ou le mot de passe est incorrecte !");
