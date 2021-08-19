@@ -175,9 +175,11 @@
 
 			if (this.id == "btnRadioGroupAchat") {
 
+				checkboxVente.prop("checked", false);
 				checkboxVente.attr("disabled", true);
 				checkboxAchat.attr("disabled", false);
 			} else {
+				checkboxAchat.prop("checked", false);
 				checkboxVente.attr("disabled", false);
 				checkboxAchat.attr("disabled", true);
 			}
