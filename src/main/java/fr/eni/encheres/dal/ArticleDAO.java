@@ -16,6 +16,10 @@ public interface ArticleDAO {
   List<Article> FilterCategory(String category) throws Exception;
 
   int insert(Article article) throws DALException;
+  
+  Article getArticleById(int idArticle) throws DALException;
+  
+  int finshSellArticle(int idArticle, int sellPrice) throws DALException;
 
   List<Article> FilterConnectedSearchAuctionInProgress(String search, int idUserConnected)
       throws Exception;
