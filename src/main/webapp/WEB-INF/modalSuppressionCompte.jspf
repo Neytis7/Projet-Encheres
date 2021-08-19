@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="titleModalDeleteAccount">
-        	<i class="fas fa-exclamation-triangle"></i> Suppression du compte
+        	<i class="fas fa-exclamation-triangle"></i> Delete my account
        	</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -11,16 +11,16 @@
       </div>
       <div class="modal-body">
       	<p class="lead text-danger font-weight-bold text-center">
-      		Attention ! Cette action est irréversible.
+      		Warning ! This action is irreversible.
      	</p> 	
       	<p class="lead text-center">
-      		Vos ventes et enchères en cours seront également supprimer.
-      	 	Êtes-vous sûr de vouloir supprimer votre compte	définitivement ? 
+      		Your current sales will be delete too.
+      	 	Are you sure you want to delete your account ? 
         </p> 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-lg" data-dismiss="modal">Revenir en lieu sûr</button>
-        <a href="./DeleteAccount" class="btn btn-danger btn-lg">Suppression du compte</a>
+        <button type="button" class="btn btn-success btn-lg" data-dismiss="modal">Get back to a safe place</button>
+        <a href="./DeleteAccount" class="btn btn-danger btn-lg">Delete my account</a>
       </div>
     </div>
   </div>

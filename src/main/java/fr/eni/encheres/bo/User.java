@@ -207,31 +207,31 @@ public class User {
   public ArrayList<String> checkInformations() {
     ArrayList<String> errors = new ArrayList<>();
     if (Utils.isBlankString(this.pseudo)) {
-      errors.add("Le pseudo est manquant");
+      errors.add("Pseudo is empty");
     } else if (!this.pseudo.matches("^[a-zA-Z0-9]*$")) {
-      errors.add("Le pseudo doit être composé uniquement de caractère alphanumérique !");
+      errors.add("Pseudo must be composed only of alphanumeric characters !");
     }
 
     if (Utils.isBlankString(this.name)) {
-      errors.add("Le nom est manquant");
+      errors.add("Name is empty");
     }
     if (Utils.isBlankString(this.first_name)) {
-      errors.add("Le prénom est manquant");
+      errors.add("First Name is empty");
     }
     if (Utils.isBlankString(this.mail)) {
-      errors.add("L'email est manquant");
+      errors.add("Mail is empty");
     }
     if (Utils.isBlankString(this.address)) {
-      errors.add("L'adresse est manquante");
+      errors.add("Address is empty");
     }
     if (Utils.isBlankString(this.city)) {
-      errors.add("La ville est manquante");
+      errors.add("City is empty");
     }
     if (Utils.isBlankString(this.zip_code)) {
-      errors.add("Le code postal est manquant");
+      errors.add("Zip Code is empty");
     }
     if (Utils.isBlankString(this.password)) {
-      errors.add("Le mot de passe est manquant");
+      errors.add("Password is empty");
     }
     return errors;
   }

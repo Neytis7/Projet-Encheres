@@ -44,7 +44,7 @@ public class saleItem extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    String redirectServlet = "WEB-INF/Home.jsp";
+    String redirectServlet = "./Home";
     HttpSession session = request.getSession();
     ArrayList<String> errors = new ArrayList<>();
     User userConnected = null;
@@ -60,7 +60,7 @@ public class saleItem extends HttpServlet {
         userConnected = usersManager.getUserById(idUserConnected);
         request.setAttribute("user", userConnected);
       } catch (BLLException bllException) {
-        errors.add("Une erreur est survenue lors de la recupération de votre adresse !");
+        errors.add("An error has occurred while getting your address !");
       }
 
       try {
@@ -68,10 +68,10 @@ public class saleItem extends HttpServlet {
         request.setAttribute("categories", allCategories);
         redirectServlet = "WEB-INF/sale-item.jsp";
       } catch (BLLException bllException) {
-        errors.add("Une erreur est survenue lors de la recupération des catégories disponible !");
+        errors.add("An error has occurred while getting available categories !");
       }
     } else {
-      errors.add("Vous devez être connecté pour accèder à cette page.");
+      errors.add("You must be connected to see this page");
     }
 
     redirection(redirectServlet, errors, null, request, response, false);
@@ -109,8 +109,8 @@ public class saleItem extends HttpServlet {
         userConnected = usersManager.getUserById(idUserConnected);
       } catch (BLLException exception) {
 
-        errors.add("Une erreur est survenue lors de la recupération de vos informations personnelles !");
-        redirection("WEB-INF/sign-in.jsp", errors, null, request, response, true);
+        errors.add("An error has occurred while getting your personal informations !");
+        redirection("./sign-in", errors, null, request, response, true);
         return;
       }
 
@@ -133,7 +133,7 @@ public class saleItem extends HttpServlet {
         try {
           categoyItem = Integer.parseInt(request.getParameter("categoyItem"));
         } catch (NumberFormatException exception) {
-          errors.add("Le chargement des catégories à échoué !");
+          errors.add("Categories loading failed !");
         }
 
         if (errors.size() > 0) {
@@ -163,24 +163,24 @@ public class saleItem extends HttpServlet {
                 return;
               } else {
                 retraitManager.creerRetrait(retrait);
-                String success = "L'article à été créé avec succès !";
+                String success = "Article has been successfully created !";
                 redirection("./Home", null, success, request, response, false);
               }
             } catch (BLLException exception) {
-              errors.add("Une erreur est survenue lors de l'ajout de l'adresse de retrait !");
+              errors.add("An error has occurred while adding withdrawal !");
               return;
             }
           } else {
-            throw new BLLException(new Exception("Erreur pour la création de l'article"));
+            throw new BLLException(new Exception("An error has occurred while creating article"));
           }
 
         } catch (BLLException exception) {
-          errors.add("Une erreur est survenue pour l'ajout de votre article !");
+          errors.add("An error has occurred while adding your article !");
         }
       }
     } else {
-      errors.add("Vous devez être connecté pour accèder à cette page.");
-      redirection("WEB-INF/sign-in.jsp", errors, null, request, response, true);
+      errors.add("You must be connected to see this page");
+      redirection("./sign-in", errors, null, request, response, true);
       return;
     }
   }

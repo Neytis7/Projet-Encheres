@@ -39,7 +39,7 @@ public class DeleteAccount extends HttpServlet {
 	    User userConnected = null;
 	    ArrayList<String> errorMessage = new ArrayList<>();
 	    String redirectServlet = "./user-profil";
-	    String successMessage = "Votre compte à bien été supprimé !";
+	    String successMessage = "Your account has been deleted !";
 
 	    HttpSession session = request.getSession();
 
@@ -58,13 +58,13 @@ public class DeleteAccount extends HttpServlet {
 		    		  redirectServlet = "./sign-out";
 		    	  }
 	    	  }else {
-	    		  throw new BLLException(new Exception("L'utilisateur n'a pas été trouvé"));
+	    		  throw new BLLException(new Exception("User was not find"));
 	    	  }
 	      } catch (BLLException bllException) {
-	        errorMessage.add("Une erreur est survenue pour la suppression de votre compte");
+	        errorMessage.add("An error has occurred while deleting your account");
 	      }
 	    } else {
-	    	 errorMessage.add("Vous devez vous connecter pour réaliser cette action");
+	    	 errorMessage.add("You must be log in to do that action");
 	    }
 	    
 	    request.setAttribute("errors", errorMessage);

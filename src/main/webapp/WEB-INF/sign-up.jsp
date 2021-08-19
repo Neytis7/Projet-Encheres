@@ -3,14 +3,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Encheres | Inscription</title>
+		<title>ENI-Auction | Sign up</title>
 		<%@ include file="includeCDN.jsp" %>
 	</head>
 	<body>
 		<%@ include file="/WEB-INF/FragHeading.jspf" %>
 		
 		<div class="container">
-			<p class="display-3">Création de votre compte ! </p>
+			<p class="display-3">Create your account ! </p>
 			
 			<c:forEach var="error" items="${errors}">	
 				<div class="alert alert-danger alert-dismissible fade show" role="alert" style="width:35%;">
@@ -39,58 +39,59 @@
 			<form method="POST" action="./sign-up" class="col-6">
 			
 				<div class="form-group">
-					<label for="pseudoUser">pseudo :</label>
+					<label for="pseudoUser">Pseudo :</label>
 					<input type="text" class="form-control" id="pseudoUser" name="pseudoUser" value="${pseudo}" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="nameUser">nom :</label>
+					<label for="nameUser">Name :</label>
 					<input type="text" class="form-control" id="nameUser" name="nameUser" value="${name}" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="fistNameUser">prenom :</label>
+					<label for="fistNameUser">First Name :</label>
 					<input type="text" class="form-control" id="fistNameUser" name="firstNameUser" value="${firstName}" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="mailUser">email :</label>
+					<label for="mailUser">Mail :</label>
 					<input type="email" class="form-control" id="mailUser" name="mailUser" value="${email}" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="phoneNumberUser">numéro de téléphone :</label>
+					<label for="phoneNumberUser">Phone Number :</label>
 					<input type="tel" class="form-control" id="phoneNumberUser" name="phoneNumberUser" value="${phone}">
 				</div>
 		
 				<div class="form-group">
-					<label for="addressUser">n° et nom de rue :</label>
+					<label for="addressUser">Address :</label>
 					<input type="text" class="form-control" id="addressUser" name="addressUser" value="${address}" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="cityUser">ville :</label>
+					<label for="zipCodeUser">Zip Codel :</label>
+					<input type="text" class="form-control" id="zipCodeUser" name="zipCodeUser" value="${zipcode}" required>
+				</div>
+				
+				
+				<div class="form-group">
+					<label for="cityUser">City :</label>
 					<input type="text" class="form-control" id="cityUser" name="cityUser" value="${city}" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="zipCodeUser">code postal :</label>
-					<input type="text" class="form-control" id="zipCodeUser" name="zipCodeUser" value="${zipcode}" required>
-				</div>
-				
-				<div class="form-group">
-					<label for="passwordUser">mot de passe :</label>
+					<label for="passwordUser">PAssword :</label>
 					<input type="password" class="form-control" id="passwordUser" name="passwordUser" value="${password}" required>
 				</div>
 				
 				<div class="form-group">
-					<button type="submit" class="btn btn-success btn-lg" id="btnSignUp" name="btnSignUp">S'inscrire</button>
+					<button type="submit" class="btn btn-success btn-lg" id="btnSignUp" name="btnSignUp">Sign up</button>
 				</div>
 			
 			</form>
 			
-			<p class="lead">Vous avez déjà un compte ?</p>
-			<a href="./sign-in" class="btn btn-info bt-large">Connexion</a>
+			<p class="lead">Your already have an account ?</p>
+			<a href="./sign-in" class="btn btn-info bt-large">Sign in</a>
 		
 		</div>
 		

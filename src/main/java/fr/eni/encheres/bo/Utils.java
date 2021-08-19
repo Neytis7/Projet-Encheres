@@ -26,17 +26,17 @@ public class Utils {
       allUsers = userDAO.selectAllUsersPseudoAndMail(idUser);
     } catch (DALException exception) {
       throw new DALException(
-          new Exception("Une erreur est survenue pour la récupération de la liste des login"));
+          new Exception("An error has occurred while checking available pseudo"));
     }
 
     if (allUsers != null) {
       for (User aUser : allUsers) {
         if (aUser.getPseudo().trim().equals(user.getPseudo())) {
-          errors.add("Ce pseudo est déjà utilisé par une autre personne");
+          errors.add("This pseudo is already used. Choose an other");
         }
 
         if (aUser.getMail().trim().equals(user.getMail())) {
-          errors.add("Cet email est déjà utilisé par une autre personne");
+          errors.add("An account with this mail already exists");
         }
         if (errors.size() > 0) {
           break;

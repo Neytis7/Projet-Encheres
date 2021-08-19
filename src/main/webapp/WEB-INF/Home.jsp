@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ENI-Auction</title>
+<title>ENI-Auction | Home</title>
 <%@ include file="includeCDN.jsp"%>
 </head>
 <body>
@@ -51,11 +51,11 @@
 						</div>
 						<br>
 						<fieldset>
-							<span> <label for="btnRadioAchat">Achat</label> <input
+							<span> <label for="btnRadioAchat">Purchase</label> <input
 								type="radio" class="change" name="btnRadioGroup"
 								id="btnRadioGroupAchat" value="achat" checked>
 
-							</span> <span style="margin: 20%;"> <label for="btnRadioVente">Vente</label>
+							</span> <span style="margin: 20%;"> <label for="btnRadioVente">Sale</label>
 								<input type="radio" class="change" name="btnRadioGroup"
 								value="vente" id="btnRadioGroupVente">
 							</span>
@@ -64,19 +64,19 @@
 							<div class="row">
 								<div class="col-3">
 									<input type="checkbox" class="changeCheckbox" name="checkbox_achat"
-										value="enchereEnOuvertes"> Enchères ouvertes<br>
+										value="enchereEnOuvertes"> Opened auctions<br>
 									<input type="checkbox" class="changeCheckbox" name="checkbox_achat"
-										value="enchereEnCours"> Mes enchères en cours<br> <input
+										value="enchereEnCours"> My current auctions<br> <input
 										type="checkbox" class="changeCheckbox" name="checkbox_achat"
-										value="enchereRemportees"> Mes enchères remportées<br>
+										value="enchereRemportees"> My won auctions<br>
 								</div>
 								<div class="col-3">
 									<input type="checkbox" class="changeCheckbox" name="checkbox_vente"
-										value="venteEnCours"> Mes ventes en cours<br> <input
+										value="venteEnCours"> My current sales<br> <input
 										type="checkbox" class="changeCheckbox" name="checkbox_vente"
-										value="ventesNonDebutees"> Mes ventes non débutées<br>
+										value="ventesNonDebutees"> My futures sales<br>
 									<input type="checkbox" class="changeCheckbox" name="checkbox_vente"
-										value="ventesTerminees"> Mes ventes terminées<br>
+										value="ventesTerminees"> My finished sales<br>
 								</div>
 							</div>
 						</fieldset>

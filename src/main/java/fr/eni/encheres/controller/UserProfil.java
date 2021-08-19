@@ -45,7 +45,7 @@ public class UserProfil extends HttpServlet {
     UsersManager usersManager = new UsersManager();
     User userToDisplay = null;
     String errorMessage = "";
-    String redirectServlet = "WEB-INF/Home.jsp";
+    String redirectServlet = "./Home";
 
     HttpSession session = request.getSession();
 
@@ -56,7 +56,7 @@ public class UserProfil extends HttpServlet {
       try {
         userToDisplay = usersManager.getUserById(idUserConnected);
       } catch (BLLException bllException) {
-        errorMessage = "Une erreur est survenue pour l'affichage de votre profil";
+        errorMessage = "An error has occured while displaying your profile";
       }
 
       if (userToDisplay != null) {
@@ -64,7 +64,7 @@ public class UserProfil extends HttpServlet {
         redirectServlet = "WEB-INF/userProfil.jsp";
       }
     } else {
-      errorMessage = "Vous devez vous connecter pour accèder à votre profil";
+      errorMessage = "You must be connected to see this page";
     }
 
 

@@ -76,10 +76,10 @@ public class signUp extends HttpServlet {
             session.setAttribute("nameUserConnected", user.getName());
             session.setAttribute("firstNameUserConnected", user.getFirst_name());
             redirectServlet = "./Home";
-            request.setAttribute("success", "Votre compte a été crée avec succès !");
+            request.setAttribute("success", "Your account has been successfully registered !");
           }
         } catch (BLLException e) {
-          errors.add("[erreur] L'inscripton de l'utilisateur à échoué");
+          errors.add("An error has occurred while user inscription");
         }
       }
     }
