@@ -1,0 +1,34 @@
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="nav-item nav-link active" href="<%=request.getContextPath() %>/Home">
+  	<img src="img/logoEnchere.PNG" alt="le logo enchère de l'application" width="60px">
+  </a>
+  <a class="navbar-brand" href="<%=request.getContextPath() %>/Home">ENI-Auction</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+    	
+		<c:choose>
+	         <c:when test ="${empty idUserConnected}">
+	            <a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sign-up">Sign up</a>
+	      		<a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sign-in">Sign in</a>
+	         </c:when>
+	         
+	         
+	         <c:otherwise>
+           		<a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sale-item">Sell article</a>
+          
+          		<div class="btn-group" style="position:absolute;right:0%;"role="group" aria-label="Basic example">
+	           		<a href="./user-profil"><span class="navbar-text text-dark btn btn-outline-dark" style="pointer-events: none;">${firstNameUserConnected} ${nameUserConnected}</span></a>
+	           		<a href="./sign-out"><span class="navbar-text text-danger btn btn-outline-danger" style="pointer-events: none;">Sign out</span></a>
+        		</div>
+         	</c:otherwise>
+         </c:choose>
+	      
+    </div>
+  </div>
+</nav>
+<!-- TODO: mettre les messages ERRORS -->
+</header>

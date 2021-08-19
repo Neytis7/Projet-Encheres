@@ -1,0 +1,16 @@
+
+build/classes/fr/eni/encheres/bll/BLLException.class
+
+build/classes/fr/eni/encheres/bll/UsersManager.class
+
+build/classes/fr/eni/encheres/bo/User.class
+
+build/classes/fr/eni/encheres/controller/Enchere.class
+
+build/classes/fr/eni/encheres/controller/UserProfil.class
+
+build/classes/fr/eni/encheres/dal/DALException.class
+
+build/classes/fr/eni/encheres/dal/jdbc/ConnexionProvider.class
+
+build/classes/fr/eni/encheres/dal/UserDaoImpl.class
