@@ -3,14 +3,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Encheres | Connexion</title>
+		<title>ENI-Auction | Sign in </title>
 		<%@ include file="includeCDN.jsp" %>
 	</head>
 	<body>
 		<%@ include file="/WEB-INF/FragHeading.jspf" %>
 		
 		<div class="container">
-			<p class="display-3">Connectez-vous ! </p>
+			<p class="display-3">Sign in ! </p>
 			
 			<c:forEach var="error" items="${errors}">	
 				<div class="alert alert-danger alert-dismissible fade show" role="alert" style="width:35%;">
@@ -28,25 +28,25 @@
 			<form method="POST" action="./sign-in" class="col-6">
 			
 				<div class="form-group">
-					<label for="loginUser">votre pseudo ou email :</label>
+					<label for="loginUser">Pseudo or Mail :</label>
 					<input type="text" class="form-control" id="loginUser" name="loginUser" value="${login }" required>
-					<label for="rememberMe">Se souvenir de moi</label>
+					<label for="rememberMe">Remember me</label>
 					<input type="checkbox" name="rememberMe" ${checked}>
 				</div>
 				
 				<div class="form-group">
-					<label for="passwordUser">votre mot de passe :</label>
+					<label for="passwordUser">Password :</label>
 					<input type="password" class="form-control" id="passwordUser" name="passwordUser" required>
 				</div>
 				
 				<div class="form-group">
-					<button type="submit" class="btn btn-success btn-lg" id="btnSignIn" name="btnSignIn">Connexion</button>
+					<button type="submit" class="btn btn-success btn-lg" id="btnSignIn" name="btnSignIn">Sign in</button>
 				</div>
 			
 			</form>
 			
-			<p class="lead">Vous n'avez pas encore de compte ?</p>
-			<a href="./sign-up" class="btn btn-info bt-large">S'inscrire</a>
+			<p class="lead">You don't have an account ?</p>
+			<a href="./sign-up" class="btn btn-info bt-large">Sign up</a>
 		
 		</div>
 		

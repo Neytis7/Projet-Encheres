@@ -196,41 +196,41 @@ public class Article {
 		ArrayList<String> errors = new ArrayList<>();
 
 		if (Utils.isBlankString(this.name_article)) {
-			errors.add("Le nom de l'article est vide");
+			errors.add("Article name is empty");
 		}
 
 		if (Utils.isBlankString(this.description)) {
-			errors.add("La description de l'article est vide");
+			errors.add("Description is empty");
 		}
 
 		if (this.start_date == null) {
-			errors.add("La date de début d'enchère de l'article est vide");
+			errors.add("Auction start date is empty");
 		} else if (LocalDate.now().isAfter(this.start_date)) {
-			errors.add("La date de début d'enchère ne peut pas être dépassée");
+			errors.add("Auction start date can't be passed");
 		} else if (this.end_date != null && this.start_date.isAfter(this.end_date)) {
-			errors.add("La date de fin d'enchère doit être supérieur à la date de début de l'article");
+			errors.add("Auction end date must be greater than auction start date");
 		}
 
 		if (this.end_date == null) {
-			errors.add("La date de fin d'enchère de l'article est vide");
+			errors.add("Auction end date is empty");
 		} else if (LocalDate.now().isAfter(this.end_date)) {
-			errors.add("La date de fin d'enchère ne peut pas être dépassée");
+			errors.add("Auction end date can't be passed");
 		} else if (this.start_date != null && this.end_date.isBefore(this.start_date)) {
-			errors.add("La date de début d'enchère doit être inférieur à la date de fin de l'article");
+			errors.add("The auction start date must be less than auction end date ");
 		}
 
 		if (this.userSeller != null && Utils.isBlankString(this.userSeller.getPseudo())) {
-			errors.add("Vos informations en tant que vendeur ne sont pas remplies");
+			errors.add("Your seller informations are empty");
 		}
 
 		if (checkCategory) {
 			if (this.category != null && Utils.isBlankString(this.getCategory().getLibelle())) {
-				errors.add("La categorie de l'article est vide");
+				errors.add("Category is empty");
 			}
 		}
 
 		if (this.initial_price <= 0) {
-			errors.add("Le prix initial de l'article doit être supérieur à 0");
+			errors.add("Article initial price must be greater than 0");
 		}
 
 		return errors;

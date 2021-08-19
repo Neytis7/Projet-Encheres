@@ -3,14 +3,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Encheres | Vendre un article</title>
+		<title>ENI-Auction | Sell an article</title>
 		<%@ include file="includeCDN.jsp" %>
 	</head>
 	<body>
 		<%@ include file="/WEB-INF/FragHeading.jspf" %>
 		
 		<div class="container">
-			<p class="display-3">Nouvelle vente ! </p>
+			<p class="display-3">New sale ! </p>
 			
 			<c:forEach var="error" items="${errors}">	
 				<div class="alert alert-danger alert-dismissible fade show" role="alert" style="width:35%;">
@@ -33,7 +33,7 @@
 			<form method="POST" action="./sale-item" class="col-6">
 			
 				<div class="form-group">
-					<label for="nameItem">Nom :</label>
+					<label for="nameItem">Article name :</label>
 					<input type="text" class="form-control" id="nameItem" name="nameItem" value="${ nameArticle }" required>
 				</div>
 				
@@ -43,7 +43,7 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="categoyItem">Categorie :</label>
+					<label for="categoyItem">Category :</label>
 					<select class="browser-default custom-select" name="categoyItem">	  					
 	  					<c:forEach var="category" items="${categories}">
 	  						<c:choose>
@@ -59,22 +59,22 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="priceItem">Mise à prix :</label>
+					<label for="priceItem">Start Price :</label>
 					<input type="number" class="form-control-file" id="priceItem" name="priceItem" value="${ priceArticle }" min="1" required>
 				</div>
 		
 				<div class="form-group">
-					<label for="startDateItem">Début de l'enchère</label>
+					<label for="startDateItem">Start of Auction</label>
 					<input type="date" class="form-control" id="startDateItem" name="startDateItem" value="${ startDateArticle }" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="endDateItem">Fin de l'enchère :</label>
+					<label for="endDateItem">End of Auction:</label>
 					<input type="date" class="form-control" id="endDateItem" name="endDateItem" value="${ endDateArticle }" required>
 				</div>
 				
 				
-				<p>Retrait</p>
+				<p>Withdrawal</p>
 				
 				<c:if test="${not empty user }">
 					<c:set var="addressItemUser" scope="page" value="${user.address }"/>
@@ -85,24 +85,24 @@
 				
 				
 				<div class="form-group">
-					<label for="adressItemUser">N° et nom de rue :</label>
+					<label for="adressItemUser">Address :</label>
 					<input type="text" class="form-control" id="adressItemUser" name="adressItemUser" value="${addressItemUser}" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="zipCodeItemUser">Code postal :</label>
+					<label for="zipCodeItemUser">Zip Codel :</label>
 					<input type="text" class="form-control" id="zipCodeItemUser" name="zipCodeItemUser" value="${zipCodeItemUser}" required>
 				</div>
 				
 				<div class="form-group">
-					<label for="cityItemUser">Ville :</label>
+					<label for="cityItemUser">City :</label>
 					<input type="text" class="form-control" id="cityItemUser" name="cityItemUser" value="${cityItemUser}" required>
 				</div>
 				
 				
 				
 				<div class="form-group">
-					<button type="submit" class="btn btn-success btn-lg" id="btnSubmitItem" name="btnSubmitItem">Enregistrer</button>
+					<button type="submit" class="btn btn-success btn-lg" id="btnSubmitItem" name="btnSubmitItem">Submit my article</button>
 					<a href="./Home" class="btn btn-danger btn-lg">Cancel</a>
 				</div>
 			

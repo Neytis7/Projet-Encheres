@@ -37,7 +37,7 @@ public class ModifyUser extends HttpServlet {
       throws ServletException, IOException {
     UsersManager usersManager = new UsersManager();
     User userToDisplay = null;
-    String errorMessage = "";
+    ArrayList<String> errorMessage = new ArrayList<>();
     String redirectServlet = "/WEB-INF/modifyUser.jsp";
     HttpSession session = request.getSession();
     if (session != null && session.getAttribute("idUserConnected") != null) {
@@ -45,7 +45,7 @@ public class ModifyUser extends HttpServlet {
       try {
         userToDisplay = usersManager.getUserById(idUserConnected);
       } catch (BLLException bllException) {
-        errorMessage = "Failed to get user " + idUserConnected;
+        errorMessage.add("Failed to get user " + idUserConnected);
       }
 
       if (userToDisplay != null) {
@@ -55,8 +55,8 @@ public class ModifyUser extends HttpServlet {
       }
 
     } else {
-      errorMessage = "Vous devez vous connecter pour accéder à votre profil";
-      redirectServlet = "/WEB-INF/Home.jsp";
+      errorMessage.add("You must be connected to see your profile");
+      redirectServlet = "./Home";
     }
 
     RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);
@@ -92,7 +92,7 @@ public class ModifyUser extends HttpServlet {
         errors = userToModify.checkInformations();
         if (!request.getParameter("passwordUser").trim()
             .equals(request.getParameter("confirmPasswordUser").trim())) {
-          errors.add("Les mots de passe rentrées ne correspondent pas.");
+          errors.add("Passwords are different");
 
         }
 
@@ -115,14 +115,14 @@ public class ModifyUser extends HttpServlet {
                 session.setAttribute("nameUserConnected", userModified.getName());
                 session.setAttribute("firstNameUserConnected", userModified.getFirst_name());
               }
-              request.setAttribute("success", "Vos informations ont bien été mises à jour");
+              request.setAttribute("success", "Your informations has been successfully updated");
               redirectServlet = "./user-profil";
             } else {
               request.setAttribute("errors", errors);
               request.setAttribute("user", userToModify);
             }
           } catch (BLLException e) {
-            errors.add("[erreur] Echec lors de l'enregistrement de vos informations.");
+            errors.add("An eeror has occurred while saving your informations");
           }
         }
       } else {
@@ -130,8 +130,8 @@ public class ModifyUser extends HttpServlet {
       }
 
     } else {
-      errors.add("Vous devez vous connecter pour accéder à votre profil");
-      redirectServlet = "/WEB-INF/Home.jsp";
+      errors.add("You must be connected to see you profile");
+      redirectServlet = "./Home";
     }
 
     RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);

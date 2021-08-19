@@ -54,15 +54,15 @@ public class Retrait {
 		ArrayList<String> errors = new ArrayList<>();
 		
 		if(Utils.isBlankString(this.address)){
-			errors.add("L'adresse est vide");
+			errors.add("Address is empty");
 		}
 		
 		if(Utils.isBlankString(this.code_postal)){
-			errors.add("Le code postal est vide");	
+			errors.add("Zip Code is empty");	
 		}
 		
 		if(this.city == null){
-			errors.add("La ville est vide");
+			errors.add("City is empty");
 		}
 		
 		return errors;

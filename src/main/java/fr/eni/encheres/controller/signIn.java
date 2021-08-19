@@ -115,18 +115,18 @@ public class signIn extends HttpServlet {
               session.setAttribute("firstNameUserConnected", userConnected.getFirst_name());
               redirectServlet = "./Home";
             } else {
-              errors.add("Ce compte est inactif, veuillez en recrée un autre.");
+              errors.add("This account is inactive");
               redirectServlet = "WEB-INF/sign-in.jsp";
             }
           } else {
-            errors.add("Le login ou le mot de passe est incorrecte !");
+            errors.add("Login/Password incorrect !");
           }
 
         } catch (BLLException exception) {
-          errors.add("Une erreur s'est produite, veuillez réessayer !");
+          errors.add("An error has occured, try again !");
         }
       } else {
-        errors.add("Les champs pseudo/email et mot de passe doivent être renseignés.");
+        errors.add("You have to fill login/password fields.");
       }
     }
 
