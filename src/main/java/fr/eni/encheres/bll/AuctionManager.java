@@ -32,4 +32,13 @@ public class AuctionManager {
 		}
 		return auctionsList;
 	}
+	
+	
+	public int insertNewAuction(Auction auction, int idArticle) throws BLLException {
+		try {
+			return auctionDAO.insertNewAuction(auction, idArticle);
+		} catch (Exception e) {
+			throw new BLLException(new Exception("L'insert de la nouvelle enchère a échouée."));
+		}
+	}
 }

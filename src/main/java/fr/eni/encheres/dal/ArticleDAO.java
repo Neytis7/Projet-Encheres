@@ -18,5 +18,7 @@ public interface ArticleDAO {
   int insert(Article article) throws DALException;
   
   Article getArticleById(int idArticle) throws DALException;
+  
+  int finshSellArticle(int idArticle, int sellPrice) throws DALException;
 
 }

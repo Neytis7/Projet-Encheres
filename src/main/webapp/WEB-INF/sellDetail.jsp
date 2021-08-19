@@ -10,7 +10,7 @@
 <body>
 	<%@ include file="/WEB-INF/FragHeading.jspf"%>
 	<div class="container">
-		<p class="display-3">Détail de la vente</p>
+		<p class="display-3">Sell detail</p>
 
 		<c:forEach var="error" items="${errors}">
 			<div class="alert alert-danger alert-dismissible fade show"
@@ -31,26 +31,43 @@
 				<dt class="col-sm-3">Description :</dt>
 				<dd class="col-sm-9">${article.description}</dd>
 
-				<dt class="col-sm-3">Catégorie :</dt>
+				<dt class="col-sm-3">Category :</dt>
 				<dd class="col-sm-9">${article.category.libelle}</dd>
 
-				<dt class="col-sm-3">Meilleure offre :</dt>
+				<dt class="col-sm-3">Best bid :</dt>
 				<dd class="col-sm-9">${article.getBestAuction()}</dd>
 
-				<dt class="col-sm-3">Mise à prix :</dt>
+				<dt class="col-sm-3">Initial price :</dt>
 				<dd class="col-sm-9">${article.initial_price}</dd>
 
-				<dt class="col-sm-3">Fin de l'enchère :</dt>
-				<dd class="col-sm-9">${article.getformatDate()}</dd>
+				<dt class="col-sm-3">Auction end :</dt>
+				<dd class="col-sm-9">${article.end_date}</dd>
 
-				<dt class="col-sm-3">Retrait :</dt>
+				<dt class="col-sm-3">Withdrawal :</dt>
 				<dd class="col-sm-9">${article.withdrawalPoint.displayFullAddress()}</dd>
 
-				<dt class="col-sm-3">Vendeur :</dt>
+				<dt class="col-sm-3">Seller :</dt>
 				<dd class="col-sm-9">${article.userSeller.pseudo}</dd>
 			</dl>
+		
+			<c:if test="${bid  == true}">
+				<form method="POST" action="./sell-detail?id=${article.no_article}" class="col-6">
+					<div class="form-group">
+						<label for="priceItem">Make a bid :</label>
+						<input type="number" class="form-control-file" id="priceItem" name="priceItem" min="1" required>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-success btn-lg" id="btnBid" name="btnBid">Confirm</button>
+					</div>
+				</form>
+			</c:if>
+			
+			<c:if test="${finished  == true}">
+				<dt class="col-sm-3">${article.finalAuction()}</dt>
+			</c:if>
+			
+			
 		</div>
-
 	</div>
 </body>
 </html>

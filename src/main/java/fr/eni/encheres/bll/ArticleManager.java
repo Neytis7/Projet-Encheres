@@ -2,7 +2,6 @@ package fr.eni.encheres.bll;
 
 import java.util.List;
 import fr.eni.encheres.bo.Article;
-import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dal.ArticleDAO;
 import fr.eni.encheres.dal.ArticleDaoImpl;
 import fr.eni.encheres.dal.DALException;
@@ -87,6 +86,14 @@ public class ArticleManager {
 		isNotNull(idArticle);
 		try {
 			return articleDAO.getArticleById(idArticle);
+		} catch (DALException dalException) {
+			throw new BLLException(new Exception("La récupération de l'article a échoué."));
+		}
+	}
+	
+	public int finishSellArticle(int idArticle, int sellPrice) throws BLLException {
+		try {
+			return articleDAO.finshSellArticle(idArticle, sellPrice);
 		} catch (DALException dalException) {
 			throw new BLLException(new Exception("La récupération de l'article a échoué."));
 		}

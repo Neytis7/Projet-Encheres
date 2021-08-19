@@ -29,7 +29,7 @@ public class UsersManager {
 
   public User getUserByIdArticle(int idArticle) throws BLLException {
     try {
-      return usersDAO.selectUserById(idArticle);
+      return usersDAO.selectUserByIdArticle(idArticle);
     } catch (DALException dalException) {
       throw new BLLException(new Exception("La r�cup�ration de l'utilisateur � �chou�e."));
     }

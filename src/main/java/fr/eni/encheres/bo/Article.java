@@ -1,7 +1,6 @@
 package fr.eni.encheres.bo;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +17,7 @@ public class Article {
 	private User userBuyer;
 	private Category category;
 	private boolean isDelete;
+	private boolean isFinished;
 	private int price_auction = 0;
 	private List<Auction> listAuction;
 	private Retrait withdrawalPoint;
@@ -54,7 +54,7 @@ public class Article {
 	}
 
 	public Article(int no_article, String name_article, String description, LocalDate start_date, LocalDate end_date,
-			int initial_price, int sell_price) {
+			int initial_price, int sell_price, boolean isFinished) {
 		super();
 		this.no_article = no_article;
 		this.name_article = name_article;
@@ -63,6 +63,12 @@ public class Article {
 		this.end_date = end_date;
 		this.initial_price = initial_price;
 		this.sell_price = sell_price;
+		this.isFinished = isFinished;
+	}
+
+	public Article() {
+		super();
+		this.listAuction = new ArrayList<Auction>();
 	}
 
 	public int getNo_article() {
@@ -128,6 +134,14 @@ public class Article {
 	public void setUserSeller(User userSeller) {
 		this.userSeller = userSeller;
 	}
+		
+	public boolean isFinished() {
+		return isFinished;
+	}
+
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
+	}
 
 	public User getUserBuyer() {
 		return userBuyer;
@@ -167,8 +181,8 @@ public class Article {
 
 	public void setListAuction(List<Auction> listAuction) {
 		this.listAuction = listAuction;
-	}	
-	
+	}
+
 	public Retrait getWithdrawalPoint() {
 		return withdrawalPoint;
 	}
@@ -176,10 +190,7 @@ public class Article {
 	public void setWithdrawalPoint(Retrait withdrawalPoint) {
 		this.withdrawalPoint = withdrawalPoint;
 	}
-	
-	public String getformatDate() {
-		return this.end_date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-	}
+
 	public ArrayList<String> checkValueArticle(boolean checkCategory) {
 
 		ArrayList<String> errors = new ArrayList<>();
@@ -226,23 +237,67 @@ public class Article {
 	}
 
 	public String getBestAuction() {
-	  int bestPrice = 0;
-	  User user = null;
-	  for (int i = 0; i < listAuction.size(); i++) {
-		  if (listAuction.get(i).getPrice_auction() > bestPrice) {
-			  bestPrice = listAuction.get(i).getPrice_auction();
-			  user = listAuction.get(i).getUserAuction();
-		  }
-	  }
-	  
-	  String returnString = "";
-	  if (bestPrice != 0 ) {
-		  returnString = "" + bestPrice + " jetons par " + user.getPseudo();
-	  } else {
-		  returnString = "Aucune enchère actuellement !";
-	  }
-	  return returnString;
-  }
+		int bestPrice = 0;
+		User user = null;
+		for (int i = 0; i < listAuction.size(); i++) {
+			if (listAuction.get(i).getPrice_auction() > bestPrice) {
+				bestPrice = listAuction.get(i).getPrice_auction();
+				user = listAuction.get(i).getUserAuction();
+			}
+		}
+
+		String returnString = "";
+		if (bestPrice != 0) {
+			returnString = "" + bestPrice + " credits by " + user.getPseudo();
+		} else {
+			returnString = "No current bid !";
+		}
+		return returnString;
+
+	}
+	
+	public String finalAuction() {
+		int bestPrice = 0;
+		User user = null;
+		for (int i = 0; i < listAuction.size(); i++) {
+			if (listAuction.get(i).getPrice_auction() > bestPrice) {
+				bestPrice = listAuction.get(i).getPrice_auction();
+				user = listAuction.get(i).getUserAuction();
+			}
+		}
+
+		String returnString = "";
+		if (bestPrice != 0) {
+			returnString = "Sell wins by " + user.getPseudo() +  " with " + bestPrice + " credits";
+		} else {
+			returnString = "Sell finished, no one make a bid";
+		}
+		return returnString;
+
+	}
+	
+	public int getBestBid() {
+		int bestPrice = 0;
+		for (int i = 0; i < listAuction.size(); i++) {
+			if (listAuction.get(i).getPrice_auction() > bestPrice) {
+				bestPrice = listAuction.get(i).getPrice_auction();
+			}
+		}
+
+		return bestPrice;
+	}
+	
+	public User getUserWithBestBid() {
+		User user = null;
+		int bestPrice = 0;
+		for (int i = 0; i < listAuction.size(); i++) {
+			if (listAuction.get(i).getPrice_auction() > bestPrice) {
+				user = listAuction.get(i).getUserAuction();
+			}
+		}
+		
+		return user;
+	}
 
 	@Override
 	public String toString() {
@@ -252,6 +307,5 @@ public class Article {
 				+ ", category=" + category + ", isDelete=" + isDelete + ", price_auction=" + price_auction
 				+ ", listAuction=" + listAuction + ", withdrawalPoint=" + withdrawalPoint + "]";
 	}
-	
-	
+
 }

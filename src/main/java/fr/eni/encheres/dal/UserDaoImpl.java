@@ -29,7 +29,8 @@ public class UserDaoImpl {
 													+ " rue = (?),"
 													+ " code_postal = (?),"
 													+ " ville = (?),"
-													+ " mot_de_passe = (?)"
+													+ " mot_de_passe = (?),"
+													+ "	credit = (?)"
 													+ " WHERE no_utilisateur = (?)";
     
 	private static final String SELECT_USER_BY_LOGIN = "USE DB_ENCHERES SELECT * FROM UTILISATEURS WHERE pseudo = (?) or email = (?)";
@@ -210,7 +211,8 @@ public class UserDaoImpl {
 			preparedStatement.setString(7, userToUpdate.getZip_code());
 			preparedStatement.setString(8, userToUpdate.getCity());
 			preparedStatement.setString(9, userToUpdate.getPassword());
-			preparedStatement.setInt(10, userToUpdate.getNo_user());
+			preparedStatement.setInt(10, userToUpdate.getCredit());
+			preparedStatement.setInt(11, userToUpdate.getNo_user());
 			int result = preparedStatement.executeUpdate();
 			
 			if (result > 0) {

@@ -16,7 +16,14 @@ public class Auction {
 		this.price_auction = price_auction;
 		this.userAuction = userAuction;
 	}
-	
+		
+	public Auction(LocalDate dateAuction, int price_auction, User userAuction) {
+		super();
+		this.dateAuction = dateAuction;
+		this.price_auction = price_auction;
+		this.userAuction = userAuction;
+	}
+
 	public User getUserAuction() {
 		return userAuction;
 	}
