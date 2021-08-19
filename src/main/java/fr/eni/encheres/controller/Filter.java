@@ -107,7 +107,7 @@ public class Filter extends HttpServlet {
           category = String.valueOf(request.getParameter("category"));
 
           /* Case 1 : Search + All */
-          if (category.equals("Toutes")) {
+          if (category.equals("All")) {
             try {
               filterList = articleManager.FilterConnectedSearchAuctionWin(search, idUserConnected);
               filterList = articleManager.getPrice(filterList);
@@ -144,7 +144,7 @@ public class Filter extends HttpServlet {
         if (request.getParameter("category") != null) {
           category = String.valueOf(request.getParameter("category"));
           /* Case 3 : Just Category */
-          if (!category.equals("Toutes")) {
+          if (!category.equals("All")) {
             try {
               filterList = articleManager.FilterCategoryAuctionWin(category, idUserConnected);
               filterList = articleManager.getPrice(filterList);
@@ -194,7 +194,7 @@ public class Filter extends HttpServlet {
           category = String.valueOf(request.getParameter("category"));
 
           /* Case 1 : Search + All */
-          if (category.equals("Toutes")) {
+          if (category.equals("All")) {
             try {
               filterList =
                   articleManager.FilterConnectedSearchAuctionInProgress(search, idUserConnected);
@@ -232,7 +232,7 @@ public class Filter extends HttpServlet {
         if (request.getParameter("category") != null) {
           category = String.valueOf(request.getParameter("category"));
           /* Case 3 : Just Category */
-          if (!category.equals("Toutes")) {
+          if (!category.equals("All")) {
             try {
               filterList =
                   articleManager.FilterCategoryAuctionInProgress(category, idUserConnected);
@@ -283,7 +283,7 @@ public class Filter extends HttpServlet {
           category = String.valueOf(request.getParameter("category"));
 
           /* Case 1 : Search + All */
-          if (category.equals("Toutes")) {
+          if (category.equals("All")) {
             try {
               filterList =
                   articleManager.FilterConnectedSearchMySellTerminate(search, idUserConnected);
@@ -321,7 +321,7 @@ public class Filter extends HttpServlet {
         if (request.getParameter("category") != null) {
           category = String.valueOf(request.getParameter("category"));
           /* Case 3 : Just Category */
-          if (!category.equals("Toutes")) {
+          if (!category.equals("All")) {
             try {
               filterList = articleManager.FilterCategoryMySellTerminate(category, idUserConnected);
               filterList = articleManager.getPrice(filterList);
@@ -371,7 +371,7 @@ public class Filter extends HttpServlet {
           category = String.valueOf(request.getParameter("category"));
 
           /* Case 1 : Search + All */
-          if (category.equals("Toutes")) {
+          if (category.equals("All")) {
             try {
               filterList =
                   articleManager.FilterConnectedSearchMySellNotBegin(search, idUserConnected);
@@ -409,7 +409,7 @@ public class Filter extends HttpServlet {
         if (request.getParameter("category") != null) {
           category = String.valueOf(request.getParameter("category"));
           /* Case 3 : Just Category */
-          if (!category.equals("Toutes")) {
+          if (!category.equals("All")) {
             try {
               filterList = articleManager.FilterCategoryMySellNotBegin(category, idUserConnected);
               filterList = articleManager.getPrice(filterList);
@@ -460,7 +460,7 @@ public class Filter extends HttpServlet {
           category = String.valueOf(request.getParameter("category"));
 
           /* Case 1 : Search + All */
-          if (category.equals("Toutes")) {
+          if (category.equals("All")) {
             try {
               filterList =
                   articleManager.FilterConnectedSearchMySellInProgress(search, idUserConnected);
@@ -498,7 +498,7 @@ public class Filter extends HttpServlet {
         if (request.getParameter("category") != null) {
           category = String.valueOf(request.getParameter("category"));
           /* Case 3 : Just Category */
-          if (!category.equals("Toutes")) {
+          if (!category.equals("All")) {
             try {
               filterList = articleManager.FilterCategoryMySellInProgress(category, idUserConnected);
               filterList = articleManager.getPrice(filterList);
@@ -548,7 +548,7 @@ public class Filter extends HttpServlet {
           category = String.valueOf(request.getParameter("category"));
 
           /* Case 1 : Search + All */
-          if (category.equals("Toutes")) {
+          if (category.equals("All")) {
             try {
               filterList = articleManager.FilterNameAll(search);
               filterList = articleManager.getPrice(filterList);
@@ -585,7 +585,7 @@ public class Filter extends HttpServlet {
         if (request.getParameter("category") != null) {
           category = String.valueOf(request.getParameter("category"));
           /* Case 3 : Just Category */
-          if (!category.equals("Toutes")) {
+          if (!category.equals("All")) {
             try {
               filterList = articleManager.FilterCategory(category);
               filterList = articleManager.getPrice(filterList);

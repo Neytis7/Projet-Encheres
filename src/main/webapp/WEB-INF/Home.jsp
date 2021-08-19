@@ -44,7 +44,7 @@
 							placeholder="Search" aria-label="Search"><select
 							name="category" class="browser-default custom-select">
 							<!-- TODO: recuperer en base les categories -->
-							<option selected>Toutes</option>
+							<option selected>All</option>
 							<c:forEach var="category" items="${listCategories}">
 								<option value="${category.libelle}">${category.libelle}</option>
 							</c:forEach>
@@ -93,7 +93,7 @@
 							placeholder="Search" aria-label="Search"> <select
 							name="category" class="browser-default custom-select">
 							<!-- TODO: recuperer en base les categories -->
-							<option selected>Toutes</option>
+							<option selected>All</option>
 							<c:forEach var="category" items="${listCategories}">
 								<option value="${category.libelle}">${category.libelle}</option>
 							</c:forEach>
