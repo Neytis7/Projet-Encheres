@@ -19,86 +19,89 @@ import fr.eni.encheres.bo.User;
  */
 @WebServlet(description = "Permet à l'utilisateur de se connecter", urlPatterns = {"/sign-in"})
 public class signIn extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * @see HttpServlet#HttpServlet()
-   */
-  public signIn() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public signIn() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-  /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-   */
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sign-in.jsp");
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/sign-in.jsp");
 
-    if (rd != null) {
-      rd.forward(request, response);
-    }
-  }
+		if (rd != null) {
+			rd.forward(request, response);
+		}
+	}
 
-  /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-   */
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-    String btnSignIn = request.getParameter("btnSignIn");
-    List<String> errors = new ArrayList<>();
-    UsersManager usersManager = new UsersManager();
-    String redirectServlet = "WEB-INF/sign-in.jsp";
-    ArrayList<Object> array = new ArrayList<>();
-    User userConnected = null;
-    HttpSession session = request.getSession();
+		String btnSignIn = request.getParameter("btnSignIn");
+		List<String> errors = new ArrayList<>();
+		UsersManager usersManager = new UsersManager();
+		String redirectServlet = "WEB-INF/sign-in.jsp";
+		ArrayList<Object> array = new ArrayList<>();
+		User userConnected = null;
+		HttpSession session = request.getSession();
 
-    if (btnSignIn != null) {
+		if (btnSignIn != null) {
 
-      String loginUser = request.getParameter("loginUser");
-      String passwordUser = request.getParameter("passwordUser");
+			String loginUser = request.getParameter("loginUser");
+			String passwordUser = request.getParameter("passwordUser");
 
-      if (!loginUser.isEmpty() || !passwordUser.isEmpty()) {
+			if (!loginUser.isEmpty() || !passwordUser.isEmpty()) {
 
-        try {
-          array = usersManager.signInUser(loginUser, passwordUser);
+				try {
+					array = usersManager.signInUser(loginUser, passwordUser);
 
-          if (!array.isEmpty()) {
+					if (!array.isEmpty()) {
 
-            userConnected = (User) array.get(0);
-            boolean access = (boolean) array.get(1);
+						userConnected = (User) array.get(0);
+						boolean access = (boolean) array.get(1);
 
-            if (access) {
+						if (access) {
 
-              session.setAttribute("idUserConnected", userConnected.getNo_user());
-              session.setAttribute("nameUserConnected", userConnected.getName());
-              session.setAttribute("firstNameUserConnected", userConnected.getFirst_name());
-              redirectServlet = "./Home";
-            }
-          } else {
-            errors.add("Le login ou le mot de passe est incorrecte !");
-          }
+							session.setAttribute("idUserConnected", userConnected.getNo_user());
+							session.setAttribute("nameUserConnected", userConnected.getName());
+							session.setAttribute("firstNameUserConnected", userConnected.getFirst_name());
+							redirectServlet = "./Home";
+						}else {
+							redirectServlet = "./sign-up";
+							errors.add("Ce compte est inactif, veuillez en recréé un autre.");
+						}
+					} else {
+						errors.add("Le login ou le mot de passe est incorrecte !");
+					}
 
-        } catch (BLLException exception) {
-          errors.add("Une erreur s'est produite, veuillez réessayer !");
-        }
-      } else {
-        errors.add("Les champs pseudo/email et mot de passe doivent être renseignés.");
-      }
-    }
+				} catch (BLLException exception) {
+					errors.add("Une erreur s'est produite, veuillez réessayer !");
+				}
+			} else {
+				errors.add("Les champs pseudo/email et mot de passe doivent être renseignés.");
+			}
+		}
 
-    if (errors.size() > 0) {
-      request.setAttribute("errors", errors);
-    }
+		if (errors.size() > 0) {
+			request.setAttribute("errors", errors);
+		}
 
-    RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);
+		RequestDispatcher rd = request.getRequestDispatcher(redirectServlet);
 
-    if (rd != null) {
-      rd.forward(request, response);
-    }
-  }
+		if (rd != null) {
+			rd.forward(request, response);
+		}
+	}
 }

@@ -593,8 +593,9 @@ public class ArticleDaoImpl implements ArticleDAO {
 				String password = newRes.getString("mot_de_passe");
 				int credit = newRes.getInt("credit");
 				boolean isAdministrator = newRes.getBoolean("administrateur");
+				boolean userIsDelete = newRes.getBoolean("estSupprimee");
 				User user = new User(no_user, pseudo, name, first_name, mail, phone_number, address,
-						zip_code, city, password, credit, isAdministrator);
+						zip_code, city, password, credit, isAdministrator, userIsDelete);
 
 				Article article = new Article(no_article, name_article, description, start_date, end_date,
 						initial_price, sell_price, user, categoryBis, isDelete);
@@ -640,8 +641,9 @@ public class ArticleDaoImpl implements ArticleDAO {
 			String password = res.getString("mot_de_passe");
 			int credit = res.getInt("credit");
 			boolean isAdministrator = res.getBoolean("administrateur");
+			boolean userIsDelete = res.getBoolean("estSupprimee");
 			User user = new User(no_user, pseudo, name, first_name, mail, phone_number, address, zip_code,
-					city, password, credit, isAdministrator);
+					city, password, credit, isAdministrator, userIsDelete);
 
 			Article article = new Article(no_article, name_article, description, start_date, end_date,
 					initial_price, sell_price, user, categoryBis, isDelete);
@@ -674,6 +676,7 @@ public class ArticleDaoImpl implements ArticleDAO {
 			}
 
 		} catch (SQLException exception) {
+			exception.printStackTrace();
 			throw new DALException(new Exception("An error occured while get article with id " + idArticle));
 		}
 		return article;

@@ -1,6 +1,8 @@
 package fr.eni.encheres.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,10 +32,18 @@ public class SignOut extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		if (session != null) {  
+		if (session != null) { 
+			String successMessage = (String) request.getAttribute("successMessage");
+		    
+		    if(successMessage != null) {
+				request.setAttribute("success", successMessage);
+			}
+		    
 		    session.invalidate();
-		    response.sendRedirect("./Home");
-		    return;
+		    RequestDispatcher rd = request.getRequestDispatcher("./Home");
+		    if(rd != null) {
+		    	rd.forward(request, response);
+		    }		  
 		}
 	}
 
@@ -44,5 +54,4 @@ public class SignOut extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

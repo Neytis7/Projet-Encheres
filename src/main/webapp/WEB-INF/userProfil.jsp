@@ -3,12 +3,22 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Encheres | Mon profil</title>
+		<title>Enchères | Mon profil</title>
 		<%@ include file="includeCDN.jsp" %>
 	</head>
 	
 	<body>
 		<%@ include file="/WEB-INF/FragHeading.jspf"%>
+		<c:if test="${not empty success}">
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert" style="width: 35%;">
+				${success}
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</c:if>
 		<div class="container">
 			<p class="display-4 text-center">Mon profil</p>
 			<c:if test="${user != null}">	
@@ -39,7 +49,11 @@
 			  			<dd class="col-sm-9">${user.city}</dd>	
 					</dl>
 				</div>
-				<a href="./modify-user" class="btn btn-success btn-lg" style="margin: 0 45% 0 45%">Modifier</a>
+				<a href="./modify-user" class="btn btn-success btn-lg" style="margin: 0 45% 0 45%;">Modifier</a>
+				<button type="button" class="btn btn-danger btn-lg"  style="margin: 1% 1% 0 40%;padding:1%" data-toggle="modal" data-target="#deleteAccount">
+					Supprimer mon compte</button>
+					
+				<%@ include file="/WEB-INF/modalSuppressionCompte.jspf"%>
 			</c:if>
 		</div>
 	</body>
