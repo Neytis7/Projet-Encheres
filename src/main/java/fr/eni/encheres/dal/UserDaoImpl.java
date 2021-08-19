@@ -38,9 +38,8 @@ public class UserDaoImpl {
 		int result = 0;
 		boolean success = false;
 		
-		try {
+		try (Connection connection = ConnexionProvider.getConnection()) {
 			
-			Connection connection = ConnexionProvider.getConnection();
 			PreparedStatement ps = connection.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS);	
 			ps.setString(1, user.getPseudo());
 			ps.setString(2, user.getName());
@@ -77,9 +76,8 @@ public class UserDaoImpl {
 
 		ResultSet result;
 		User user = null;
-		try {
+		try (Connection connection = ConnexionProvider.getConnection()){
 			
-			Connection connection = ConnexionProvider.getConnection();
 			PreparedStatement ps = connection.prepareStatement(SELECT_USER_BY_LOGIN);	
 			ps.setString(1, loginUser);
 			ps.setString(2, loginUser);
@@ -112,9 +110,8 @@ public class UserDaoImpl {
 		ResultSet result;
 		ArrayList<User> allUsers = new ArrayList<>();
 		
-		try {
+		try (Connection connection = ConnexionProvider.getConnection()){
 			
-			Connection connection = ConnexionProvider.getConnection();
 			PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USERS);	
 			result = ps.executeQuery();
 			
@@ -132,8 +129,8 @@ public class UserDaoImpl {
     
     public User selectUserById(int idUser) throws DALException {
 		User user= null;
-		try {
-			Connection connexion = ConnexionProvider.getConnection();
+		try (Connection connexion = ConnexionProvider.getConnection()){
+	
 			PreparedStatement preparedStatement = connexion.prepareStatement(SELECT_USER_ID);	
 			preparedStatement.setInt(1,idUser);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -163,8 +160,8 @@ public class UserDaoImpl {
     
     public boolean updateUserByID(User userToUpdate) throws DALException {
     	boolean success = false;
-    	try {
-			Connection connexion = ConnexionProvider.getConnection();
+    	try (Connection connexion = ConnexionProvider.getConnection()){
+			
 			PreparedStatement preparedStatement = connexion.prepareStatement(UPDATE_USER_BY_ID);
 			preparedStatement.setString(1, userToUpdate.getPseudo());
 			preparedStatement.setString(2, userToUpdate.getName());
@@ -189,7 +186,5 @@ public class UserDaoImpl {
 			throw new DALException(new Exception("An error occured while update user with id " + userToUpdate.getNo_user()));
 		}
     	return success;
-    }
-    
-    
+    }    
 }

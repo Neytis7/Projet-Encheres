@@ -19,9 +19,9 @@ public class CategoryDaoImpl {
 		ResultSet result;
 		Category category = null;
 		
-		try {
+		try (Connection connection = ConnexionProvider.getConnection()) {
 			
-			Connection connection = ConnexionProvider.getConnection();
+			
 			PreparedStatement ps = connection.prepareStatement(SELECT_CATEGORY_BY_ID);	
 			ps.setInt(1, idCategory);
 			result = ps.executeQuery();
@@ -40,9 +40,8 @@ public class CategoryDaoImpl {
 		ResultSet result;
 		ArrayList<Category> allCategories = new ArrayList<>();
 		
-		try {
+		try (Connection connection = ConnexionProvider.getConnection()) {
 			
-			Connection connection = ConnexionProvider.getConnection();
 			PreparedStatement ps = connection.prepareStatement(SELECT_ALL_CATEGORIES);	
 			result = ps.executeQuery();
 			

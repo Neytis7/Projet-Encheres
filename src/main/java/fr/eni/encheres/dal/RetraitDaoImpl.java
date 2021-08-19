@@ -15,9 +15,8 @@ public class RetraitDaoImpl {
 		
 		int result = 0;
 		
-		try {
+		try (Connection connection = ConnexionProvider.getConnection()){
 			
-			Connection connection = ConnexionProvider.getConnection();
 			PreparedStatement ps = connection.prepareStatement(INSERT_RETRAIT);	
 			ps.setInt(1, retrait.getNo_article());
 			ps.setString(2, retrait.getAddress());

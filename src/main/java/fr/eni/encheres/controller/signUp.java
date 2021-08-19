@@ -61,7 +61,7 @@ public class signUp extends HttpServlet {
       User user = new User(request.getParameter("pseudoUser"), request.getParameter("nameUser"),
           request.getParameter("firstNameUser"), request.getParameter("mailUser"),
           request.getParameter("phoneNumberUser"), request.getParameter("addressUser"),
-          request.getParameter("cityUser"), request.getParameter("zipCodeUser"),
+          request.getParameter("zipCodeUser"),request.getParameter("cityUser"),
           request.getParameter("passwordUser"), 0, false);
 
       errors = user.checkInformations();
