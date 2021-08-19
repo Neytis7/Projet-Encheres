@@ -18,10 +18,12 @@
 	         
 	         
 	         <c:otherwise>
-           		<a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sign-out">Sign out</a>
-           		<a class="nav-item nav-link active" href="<%=request.getContextPath() %>/user-profil">Profile</a>
            		<a class="nav-item nav-link active" href="<%=request.getContextPath() %>/sale-item">Sell article</a>
-           		<span style="position:relative;left:100%;" class="navbar-text text-primary">${firstNameUserConnected} ${nameUserConnected}</span>
+          
+          		<div class="btn-group" style="position:absolute;right:0%;"role="group" aria-label="Basic example">
+	           		<a href="./user-profil"><span class="navbar-text text-dark btn btn-outline-dark" style="pointer-events: none;">${firstNameUserConnected} ${nameUserConnected}</span></a>
+	           		<a href="./sign-out"><span class="navbar-text text-danger btn btn-outline-danger" style="pointer-events: none;">Sign out</span></a>
+        		</div>
          	</c:otherwise>
          </c:choose>
 	      

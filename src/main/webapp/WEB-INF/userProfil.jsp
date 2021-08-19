@@ -10,9 +10,9 @@
 	<body>
 		<%@ include file="/WEB-INF/FragHeading.jspf"%>
 		<div class="container">
-			<p class="display-3">Mon profil</p>
+			<p class="display-4 text-center">Mon profil</p>
 			<c:if test="${user != null}">	
-				<div style="margin-left : 40%;margin-right: 60%; width : 45%;margin-top: 10%;">
+				<div style="margin-left : 40%;margin-right: 60%; width : 45%;margin-top: 4%;">
 					<dl class="row">
 			  			<dt class="col-sm-3">Pseudo :</dt>
 			  			<dd class="col-sm-9">${user.pseudo}</dd>

@@ -9,7 +9,7 @@
 	<body>
 		<%@ include file="/WEB-INF/FragHeading.jspf"%>
 		<div class="container">
-			<p class="display-3">Modification de vos informations</p>
+			<p class="display-4">Modification de vos informations</p>
 			
 			<c:forEach var="error" items="${errors}">	
 				<div class="alert alert-danger alert-dismissible fade show" role="alert" style="width:35%;">
